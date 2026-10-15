@@ -143,6 +143,30 @@ footer{max-width:1080px;margin:2.5rem auto 0;padding:1.4rem 1.1rem 2rem;border-t
 footer .fcta{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:1rem}
 footer .fcta a{color:var(--ac);font-weight:600;text-decoration:none}
 footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
+/* 互动演示区 */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-top:1.2rem}
+.opts{display:flex;flex-wrap:wrap;gap:.45rem;margin:.2rem 0 .8rem}
+.opts button{border:1px solid var(--bd);background:var(--card);color:var(--fg);padding:.45rem .85rem;border-radius:18px;cursor:pointer;font-size:.9rem;min-height:36px}
+.opts button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.dlabel{font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.8rem}
+.score div{background:var(--tip);border-radius:10px;padding:.55rem;text-align:center}
+.score small{display:block;color:var(--mu);font-size:.76rem}
+.score b{font-size:1.25rem;color:var(--ac)}
+.fb{margin-top:.8rem;padding:.65rem .9rem;border-radius:8px;font-weight:600;background:var(--tip);border-left:4px solid var(--ac);font-size:.92rem}
+.fb.ok{border-color:var(--ok)}.fb.bad{border-color:var(--bad)}
+.demo-btn{margin-top:.9rem;padding:.6rem 1.1rem;border:0;border-radius:10px;background:var(--ac);color:#fff;font-size:.95rem;cursor:pointer;min-height:40px}
+#fig2{width:100%;max-width:250px;background:var(--tip);border-radius:12px;display:block;margin:0 auto}
+.exlist .ex{border:1px solid var(--bd);border-radius:10px;padding:.7rem .9rem;margin-bottom:.6rem;display:flex;gap:.7rem;align-items:flex-start}
+.exlist .ex input{margin-top:.3rem;accent-color:var(--ok);width:1.1rem;height:1.1rem}
+.exlist .ex b{color:var(--ac)}
+.exlist .ex small{display:block;color:var(--mu)}
+.alertx{background:#fdecea;color:#8a1f17;border-left:4px solid var(--bad);padding:.7rem .9rem;border-radius:8px;margin-bottom:.7rem;font-size:.92rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .alertx{background:#3a1b19;color:#ffb4ab}}
+:root[data-theme="dark"] .alertx{background:#3a1b19;color:#ffb4ab}
+.barx{height:8px;background:var(--tip);border-radius:6px;overflow:hidden;margin:.4rem 0 .9rem}
+.barx i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
 /* 动效 */
 .js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
 .js .rv.on{opacity:1;transform:none}
@@ -173,7 +197,7 @@ footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
       <p class="sub" data-t="hsub">把治疗师的专业指导延伸到家里：AI 动作评估 + 多智能体协作 + 治疗师把关，构建循证的远程康复与数字疗法闭环。</p>
       <div class="chips"><i data-t="c1">智能体 AI × 治疗师把关</i><i data-t="c2">开放 Agent Harness</i><i data-t="c3">端侧 · 隐私优先</i></div>
       <div>
-        <a class="cta" href="https://fanxinxian06-source.github.io/remotion-demo/" target="_blank" rel="noopener" data-t="cta1">体验互动演示 ↗</a>
+        <a class="cta" href="#demo" data-t="cta1">体验互动演示 ↓</a>
         <a class="cta ghost" href="#data" data-t="cta2">查看效果数据</a>
       </div>
     </div>
@@ -271,6 +295,42 @@ footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
   <div class="tip"><span data-t="tHarness">技术底座 AGENTA 2028 —— 深度整合 Agentic AI 与开源 Agent 基础设施：</span> <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="tLink">查看技术底座 ↗</a></div>
 </section>
 
+<section id="demo" class="rv">
+  <span class="kick" data-t="dmKick">现场体验</span>
+  <h2 class="sec" data-t="dmTitle">亲手试一试：AI 动作评估与处方</h2>
+  <p class="lead" data-t="dmLead">拖动滑块模拟关节运动，系统实时计算角度、对比目标并给出风险提示；再生成一份个性化训练计划。</p>
+  <div class="demo-grid">
+    <div class="card">
+      <h3 data-t="hd">实时动作评估</h3>
+      <p class="mu" data-t="dd" style="margin-bottom:.8rem">拖动滑块模拟肩、肘关节运动（模拟骨骼，未使用摄像头）。</p>
+      <svg id="fig2" viewBox="0 -70 270 340" role="img" aria-label="实时动作评估示意图"></svg>
+      <div class="dlabel"><span data-t="sh">肩关节前屈</span>：<b id="sv2">20</b>°</div>
+      <input type="range" id="sa2" min="0" max="180" value="20" aria-label="肩关节前屈角度">
+      <div class="dlabel"><span data-t="el">肘关节屈曲</span>：<b id="ev2">10</b>°</div>
+      <input type="range" id="ea2" min="0" max="150" value="10" aria-label="肘关节屈曲角度">
+      <div class="score"><div><small data-t="tg">目标角度</small><b id="tgv2">120°</b></div><div><small data-t="acc">动作准确度</small><b id="acc2">0%</b></div><div><small data-t="pk">最大角度</small><b id="pk2">20°</b></div></div>
+      <div class="fb" id="fb2" role="status" aria-live="polite"></div>
+      <button class="demo-btn" id="auto2" data-t="auto">▶ 自动演示一次标准动作</button>
+    </div>
+    <div class="card">
+      <h3 data-t="dmGenT">生成训练计划</h3>
+      <div class="dlabel" data-t="lc">康复类型</div><div class="opts" id="cond2" role="group"></div>
+      <div class="dlabel" data-t="ls">康复阶段</div><div class="opts" id="stage2" role="group"></div>
+      <div class="dlabel" data-t="la">年龄段</div><div class="opts" id="age2" role="group"></div>
+      <div class="dlabel"><span data-t="lp">当前疼痛（VAS）</span>：<b id="pv2">3</b> / 10</div>
+      <input type="range" id="pain2" min="0" max="10" value="3" aria-label="疼痛评分">
+      <div class="mu" data-t="p0" style="font-size:.85rem">0 = 无痛，10 = 最剧烈疼痛</div>
+      <button class="demo-btn" id="gen2" data-t="gen" style="width:100%;margin-top:.8rem">生成训练计划</button>
+      <div id="alert2" style="margin-top:.8rem"></div>
+      <p id="sum2" class="mu" style="margin-top:.7rem"></p>
+      <div class="barx"><i id="pb2"></i></div>
+      <div class="exlist" id="list2"></div>
+      <div class="tip" data-t="adj" style="margin-top:.6rem">AI 调整逻辑：疼痛越高、年龄越大，次数与强度越低；阶段越靠后，强度逐步上调。训练中疼痛超过 4 分请降低幅度或停止。</div>
+    </div>
+  </div>
+  <p class="src" data-t="dmNote">🔒 演示完全在浏览器内运行，不使用摄像头，不上传任何数据。</p>
+</section>
+
 <section id="data" class="rv">
   <span class="kick" data-t="eKick">效果数据</span>
   <h2 class="sec" data-t="eTitle">依从性与活动度改善（示意）</h2>
@@ -342,7 +402,7 @@ footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
 
 <footer>
   <div class="fcta">
-    <a href="https://fanxinxian06-source.github.io/remotion-demo/" target="_blank" rel="noopener" data-t="f1">体验互动演示 ↗</a>
+    <a href="#demo" data-t="f1">体验互动演示</a>
     <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="f2">技术底座 AGENTA 2028 ↗</a>
   </div>
   <div data-t="foot">ReMotion AI · 远程康复与数字疗法 参赛页 ©2026</div>
@@ -434,7 +494,24 @@ r4e:["2028","2028","2028"],r4t:["CES 2028 发布","CES 2028 launch","CES 2028 �
 f1:["体验互动演示 ↗","Try the interactive demo ↗","인터랙티브 데모 체험 ↗"],
 f2:["技术底座 AGENTA 2028 ↗","Technology foundation AGENTA 2028 ↗","기술 기반 AGENTA 2028 ↗"],
 foot:["ReMotion AI · 远程康复与数字疗法 参赛页 ©2026","ReMotion AI · Telerehab & DTx competition page ©2026","ReMotion AI · 원격 재활 & DTx 출품 페이지 ©2026"],
-fdisc:["⚠ 本页面为参赛演示作品：效果数据均为示例，非医疗器械，不构成任何医疗建议，不替代专业康复医师的诊断与治疗。","⚠ Competition demo: all outcome data is illustrative; not a medical device; not medical advice; does not replace a licensed clinician's diagnosis or treatment.","⚠ 출품 데모입니다. 모든 효과 데이터는 예시이며 의료기기가 아니고 의학적 조언도 아니며 전문 재활 의료진의 진단·치료를 대체할 수 없습니다."]
+fdisc:["⚠ 本页面为参赛演示作品：效果数据均为示例，非医疗器械，不构成任何医疗建议，不替代专业康复医师的诊断与治疗。","⚠ Competition demo: all outcome data is illustrative; not a medical device; not medical advice; does not replace a licensed clinician's diagnosis or treatment.","⚠ 출품 데모입니다. 모든 효과 데이터는 예시이며 의료기기가 아니고 의학적 조언도 아니며 전문 재활 의료진의 진단·치료를 대체할 수 없습니다."],
+dmKick:["现场体验","Try it live","직접 체험"],
+dmTitle:["亲手试一试：AI 动作评估与处方","Try it: AI movement assessment & prescription","직접 체험: AI 동작 평가와 처방"],
+dmLead:["拖动滑块模拟关节运动，系统实时计算角度、对比目标并给出风险提示；再生成一份个性化训练计划。","Drag sliders to simulate joint movement; the system computes angles live, compares with targets, and flags risk — then generate a personalized plan.","슬라이더로 관절 움직임을 모의하면 각도를 실시간 계산하고 목표와 비교해 위험을 알려 줍니다. 이어서 맞춤 훈련 계획을 생성해 보세요."],
+hd:["实时动作评估","Live movement assessment","실시간 동작 평가"],
+dd:["拖动滑块模拟肩、肘关节运动（模拟骨骼，未使用摄像头）。","Drag the sliders to move shoulder and elbow (simulated skeleton, no camera used).","슬라이더로 어깨·팔꿈치를 움직여 보세요(가상 골격, 카메라 미사용)."],
+sh:["肩关节前屈","Shoulder flexion","어깨 굴곡"],el:["肘关节屈曲","Elbow flexion","팔꿈치 굴곡"],
+tg:["目标角度","Target","목표 각도"],acc:["动作准确度","Accuracy","동작 정확도"],pk:["最大角度","Peak angle","최대 각도"],
+auto:["▶ 自动演示一次标准动作","▶ Auto-play a guided rep","▶ 표준 동작 자동 시연"],stp:["■ 停止演示","■ Stop demo","■ 시연 중지"],
+fb1:["✅ 动作到位，保持住！","✅ On target — hold it!","✅ 목표 도달, 유지하세요!"],fb2:["⬆️ 再抬高一点，接近目标角度","⬆️ Raise a little more toward the target","⬆️ 목표 각도까지 조금 더 올리세요"],fb3:["⬇️ 超过目标，请缓慢放低","⬇️ Past target — lower slowly","⬇️ 목표를 넘었습니다. 천천히 내리세요"],fb4:["⚠️ 肘部过度弯曲（代偿），请伸直手臂","⚠️ Elbow over-bent (compensation) — straighten the arm","⚠️ 팔꿈치가 과도하게 굽었습니다(보상 동작). 팔을 펴세요"],fb5:["🛑 角度超出安全范围，请立即放松","🛑 Beyond safe range — relax now","🛑 안전 범위를 초과했습니다. 즉시 힘을 푸세요"],
+dmGenT:["生成训练计划","Generate a training plan","훈련 계획 생성"],
+lc:["康复类型","Condition","재활 유형"],ls:["康复阶段","Rehab stage","재활 단계"],la:["年龄段","Age group","연령대"],
+lp:["当前疼痛（VAS）","Current pain (VAS)","현재 통증(VAS)"],p0:["0 = 无痛，10 = 最剧烈疼痛","0 = no pain, 10 = worst pain","0 = 통증 없음, 10 = 극심한 통증"],
+gen:["生成训练计划","Generate plan","훈련 계획 생성"],
+sevr:["疼痛较重（≥7分）：建议暂停主动训练，尽快联系康复师或医生评估。以下仅为疼痛缓解后的参考。","Severe pain (≥7): pause active exercise and contact your therapist or doctor. The list below is for reference once pain eases.","통증이 심합니다(7점 이상): 능동 운동을 중단하고 치료사나 의사에게 연락하세요. 아래는 통증 완화 후 참고용입니다."],
+reps:["次","reps","회"],sets:["组","sets","세트"],min:["分钟","min","분"],
+adj:["AI 调整逻辑：疼痛越高、年龄越大，次数与强度越低；阶段越靠后，强度逐步上调。训练中疼痛超过 4 分请降低幅度或停止。","Adjustment logic: higher pain or older age lowers volume and intensity; later stages raise it. If pain exceeds 4 during exercise, reduce range or stop.","조정 원리: 통증이 높거나 연령이 높을수록 횟수·강도를 낮추고, 후기 단계일수록 점차 높입니다. 운동 중 통증이 4점을 넘으면 범위를 줄이거나 중단하세요."],
+dmNote:["🔒 演示完全在浏览器内运行，不使用摄像头，不上传任何数据。","🔒 The demo runs entirely in your browser: no camera, no data uploaded.","🔒 데모는 브라우저 안에서만 실행되며 카메라를 사용하지 않고 어떤 데이터도 업로드하지 않습니다."]
 };
 /* ============ 图表数据（DEMO-DATA：示例数据，可替换为真实数据） ============ */
 var CD={
@@ -447,6 +524,15 @@ var CD={
   ]},
   market:{years:[2024,2025,2026,2027,2028,2029,2030], v:[8.1,9.8,11.9,14.4,17.4,21.0,25.3]}
 };
+var COND={stroke:["脑卒中上肢","Stroke (upper limb)","뇌졸중(상지)"],ortho:["膝关节术后","Post-op knee","슬관절 수술 후"],neck:["颈肩痛","Neck & shoulder pain","목·어깨 통증"],back:["腰腿痛","Low back & leg pain","허리·다리 통증"]};
+var STG={early:["早期（保护期）","Early (protection)","초기(보호기)"],mid:["中期（恢复期）","Mid (recovery)","중기(회복기)"],late:["后期（强化期）","Late (strengthening)","후기(강화기)"]};
+var AGE=["<40","40–64","65+"];
+var EX={
+stroke:[[["健侧辅助上举","Assisted arm raise","건측 보조 팔 들기"],["双手交握，健侧带动患侧缓慢上举","Clasp hands; the sound arm slowly lifts the affected arm","두 손을 맞잡고 건측이 환측을 천천히 들어 올립니다"]],[["腕指屈伸","Wrist & finger flexion","손목·손가락 굽힘폄"],["前臂支撑，缓慢屈伸手腕与手指","Forearm supported; slowly bend and straighten wrist and fingers","팔뚝을 받치고 손목과 손가락을 천천히 굽혔다 폅니다"]],[["桌面推球","Tabletop ball roll","테이블 공 굴리기"],["前臂放毛巾上，推球画圈","Forearm on a towel; roll a ball in circles","수건 위에 팔뚝을 올리고 공을 원으로 굴립니다"]]],
+ortho:[[["踝泵运动","Ankle pumps","발목 펌프 운동"],["用力勾脚再绷脚，促进血液循环","Flex then point the foot firmly to promote circulation","발끝을 당겼다 쭉 펴며 혈액순환을 돕습니다"]],[["股四头肌等长收缩","Quad sets","대퇴사두근 등척성 수축"],["膝下垫毛巾下压，绷紧大腿前侧保持5秒","Press knee into a towel roll, tighten front thigh, hold 5 s","무릎 밑 수건을 눌러 허벅지 앞쪽을 5초간 조입니다"]],[["直腿抬高","Straight leg raise","곧은 다리 들기"],["仰卧伸直膝盖，缓慢抬起约30°","Lying down, slowly lift the straight leg about 30°","누워서 무릎을 편 채 약 30° 들어 올립니다"]]],
+neck:[[["肩胛后缩","Scapular retraction","견갑골 모으기"],["挺胸，双肩胛向脊柱靠拢，保持5秒","Chest up, squeeze shoulder blades together, hold 5 s","가슴을 펴고 어깨뼈를 모아 5초 유지합니다"]],[["靠墙天使","Wall angels","벽 천사 운동"],["背靠墙，双臂贴墙上下滑动","Back to the wall, slide arms up and down along it","벽에 등을 대고 양팔을 벽을 따라 위아래로 움직입니다"]],[["上斜方肌拉伸","Upper trapezius stretch","승모근 스트레칭"],["一手轻压头侧，轻微牵拉即可","Gently tilt head with one hand; mild stretch only","손으로 머리를 살짝 눌러 가볍게 늘려 줍니다"]]],
+back:[[["腹式呼吸","Diaphragmatic breathing","복식 호흡"],["仰卧屈膝，吸气鼓腹、呼气收腹","Knees bent; inhale to expand the belly, exhale to draw it in","무릎을 세우고 누워 들숨에 배를 부풀리고 날숨에 넣습니다"]],[["骨盆后倾","Pelvic tilt","골반 후방경사"],["腰部轻压床面，保持5秒","Gently press lower back into the bed, hold 5 s","허리를 바닥에 살짝 눌러 5초 유지합니다"]],[["桥式运动","Glute bridge","브리지 운동"],["臀部抬至肩-髋-膝成直线","Lift hips until shoulders, hips and knees align","엉덩이를 들어 어깨-골반-무릎이 일직선이 되게 합니다"]]]};
+var DM={c:"stroke",s:"mid",a:1,gen:false,done:{},pk:20,timer:0,PL:{}};
 /* ============ 基础工具 ============ */
 function t(k){return T[k]?T[k][L]:""}
 function $(i){return document.getElementById(i)}
@@ -461,7 +547,7 @@ function ui(){
   var lg=$("lang");lg.innerHTML="";
   Ls.forEach(function(x,i){var b=document.createElement("button");b.textContent=x[1];b.className=i===L?"on":"";b.setAttribute("aria-pressed",i===L);
     b.onclick=function(){L=i;try{localStorage.setItem("lg",i)}catch(e){};ui()};lg.appendChild(b)});
-  safe(c1);safe(c2);safe(c3);
+  safe(c1);safe(c2);safe(c3);safe(demoUi);
 }
 $("th").onclick=function(){var r=document.documentElement,cur=r.getAttribute("data-theme")==="dark";
   r.setAttribute("data-theme",cur?"light":"dark");try{localStorage.setItem("th",cur?"light":"dark")}catch(e){}};
@@ -567,6 +653,46 @@ function showTip(which,i,px,py){
 }
 function showTipRaw(html,px,py){var el=$("tip");el.innerHTML=html;el.style.left=px+"px";el.style.top=py+"px";el.style.opacity=1}
 function hideTip(){$("tip").style.opacity=0}
+/* ============ 互动演示（②动作评估 + 训练计划） ============ */
+function chips2(id,arr,cur,fn){var e=$(id);if(!e)return;e.innerHTML="";
+  [].forEach.call(arr,function(a){var b=document.createElement("button");b.textContent=a[1];b.className=a[0]===cur?"on":"";b.setAttribute("aria-pressed",a[0]===cur);
+  b.onclick=function(){fn(a[0]);demoUi()};e.appendChild(b)})}
+function demoUi(){
+  chips2("cond2",Object.keys(COND).map(function(k){return[k,COND[k][L]]}),DM.c,function(v){DM.c=v});
+  chips2("stage2",Object.keys(STG).map(function(k){return[k,STG[k][L]]}),DM.s,function(v){DM.s=v;DM.pk=0});
+  chips2("age2",AGE.map(function(a,i){return[i,a]}),DM.a,function(v){DM.a=v});
+  $("auto2").textContent=t(DM.timer?"stp":"auto");
+  safe(draw2);if(DM.gen)safe(plan2);
+}
+function draw2(){
+  var a=+$("sa2").value,e=+$("ea2").value,tg={early:90,mid:120,late:150}[DM.s],R=Math.PI/180,S=[120,80];
+  function pt(o,l,d){return[o[0]+l*Math.sin(d*R),o[1]+l*Math.cos(d*R)]}
+  var E=pt(S,70,a),W=pt(E,62,a+e),GE=pt(S,70,tg),GW=pt(GE,62,tg+8);
+  $("sv2").textContent=Math.round(a);$("ev2").textContent=Math.round(e);$("tgv2").textContent=tg+"°";
+  if(a>DM.pk)DM.pk=a;$("pk2").textContent=Math.round(DM.pk)+"°";
+  var ac=Math.max(0,Math.round(100-Math.abs(a-tg)*100/60-Math.max(0,e-30)/2));$("acc2").textContent=ac+"%";
+  var m=a>165||e>130?"fb5":e>45?"fb4":Math.abs(a-tg)<=8?"fb1":a<tg?"fb2":"fb3";
+  $("fb2").textContent=t(m);$("fb2").className="fb "+(m==="fb1"?"ok":m==="fb5"||m==="fb4"?"bad":"");
+  var c=m==="fb5"?"#d93025":m==="fb1"?"#2e9e6a":"#2b7bba";
+  function L2(p,q,col,w,d){return'<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+q[0]+'" y2="'+q[1]+'" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round"'+(d?' stroke-dasharray="6 6" opacity=".6"':"")+"/>"}
+  $("fig2").innerHTML=L2(S,[120,205],"#8aa4bd",9)+L2([120,205],[104,262],"#8aa4bd",9)+L2([120,205],[136,262],"#8aa4bd",9)+'<circle cx="120" cy="44" r="20" fill="#8aa4bd"/>'+L2(S,GE,"#2e9e6a",6,1)+L2(GE,GW,"#2e9e6a",6,1)+L2(S,E,c,9)+L2(E,W,c,8)+[S,E,W].map(function(q){return'<circle cx="'+q[0]+'" cy="'+q[1]+'" r="6" fill="#fff" stroke="'+c+'" stroke-width="3"/>'}).join("")+'<text x="8" y="-52" font-size="10" fill="#2e9e6a">--- '+t("tg")+"</text>"}
+function stopA2(){clearInterval(DM.timer);DM.timer=0;$("auto2").textContent=t("auto")}
+function plan2(){
+  var p=+$("pain2").value,pf=p>=7?0:p>=4?.7:1,k={early:.6,mid:1,late:1.3}[DM.s]*pf*[1,.9,.75][DM.a];
+  var n=p<4?3:2,reps=Math.max(5,Math.round(10*(k||.6))),sets=k>=1.1?3:2,mins=Math.max(5,Math.round(15*(k||.5)));
+  DM.PL={p:p,k:k,n:n,reps:reps,sets:sets,mins:mins,blk:p>=7};
+  $("alert2").innerHTML=p>=7?'<div class="alertx">'+t("sevr")+"</div>":"";
+  $("sum2").textContent=COND[DM.c][L]+" · "+STG[DM.s][L]+" · "+AGE[DM.a]+" · VAS "+p+"/10 · "+(p<4?2:1)+"×/day · ~"+mins+" "+t("min");
+  $("list2").innerHTML=EX[DM.c].slice(0,n).map(function(e,i){var id=DM.c+i;return'<label class="ex"><input type="checkbox" data-id="'+id+'"'+(DM.done[id]?" checked":"")+'><span><b>'+(i+1)+". "+esc(e[0][L])+"</b><br>"+esc(e[1][L])+"<small>"+reps+" "+t("reps")+" × "+sets+" "+t("sets")+"</small></span></label>"}).join("");
+  qa("#list2 input",function(c){c.onchange=function(){DM.done[c.dataset.id]=c.checked;bar2()}});
+  bar2();
+}
+function bar2(){var a=document.querySelectorAll("#list2 input"),d=0;[].forEach.call(a,function(c){if(c.checked)d++});var v=a.length?Math.round(d/a.length*100):0;$("pb2").style.width=v+"%"}
+$("sa2").oninput=$("ea2").oninput=function(){if(DM.timer)stopA2();draw2()};
+$("pain2").oninput=function(){$("pv2").textContent=this.value};
+$("auto2").onclick=function(){if(DM.timer){stopA2();return}var k=0;DM.pk=0;$("auto2").textContent=t("stp");
+  DM.timer=setInterval(function(){k+=.05;var tg={early:90,mid:120,late:150}[DM.s],v=tg*(.5-.5*Math.cos(k*Math.PI));$("sa2").value=v;$("ea2").value=8+10*Math.sin(k*Math.PI);draw2();if(k>=2){stopA2()}},50)};
+$("gen2").onclick=function(){DM.gen=true;DM.done={};plan2()};
 /* ============ 滚动动效与导航 ============ */
 function revealAll(){qa(".rv",function(el){el.classList.add("on")})}
 if(typeof IntersectionObserver!=="undefined"){
