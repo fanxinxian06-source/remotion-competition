@@ -2,32 +2,31 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="ReMotion AI 参赛作品：远程康复与数字疗法（DTx）——智能体 AI 居家康复闭环，多智能体协作 + 治疗师把关 + 端侧隐私优先。三语展示。">
+<meta name="description" content="ReMotion AI 参赛作品：远程康复与数字疗法（DTx）——AI 动作评估 + 多智能体协作 + 治疗师把关的居家康复闭环。三语展示，示例数据已标注。">
 <meta name="color-scheme" content="light dark">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ReMotion AI · 远程康复与数字疗法 | 参赛作品</title>
 <script>document.documentElement.className="js";
-/* ES5 兜底：主脚本若因浏览器兼容性失败，强制显示所有内容，避免空白页 */
+/* ES5 兜底：主脚本若因任何原因失败，强制显示所有内容，绝不出现空白页 */
 window.onerror=function(){var els=document.querySelectorAll(".rv");for(var i=0;i<els.length;i++){els[i].className+=" on"}return false};</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif}
 :root{--bg:#f0f7ff;--fg:#1f2933;--card:#fff;--ac:#2b7bba;--ac2:#1fb5c9;--tip:#e8f2fc;--mu:#667;--bd:#d5e3f0;
---ok:#2e9e6a;--warn:#e8a317;--bad:#d93025;
---gr:#dbe7f2;--ax:#b9cfe2;
+--ok:#2e9e6a;--warn:#e8a317;--bad:#d93025;--gr:#dbe7f2;--ax:#b9cfe2;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a26;--fg:#e6eef7;--card:#18283a;--ac:#6db3ea;--ac2:#55d4e4;--tip:#1f3650;--mu:#9fb3c8;--bd:#2c4560;--gr:#2c4560;--ax:#3d5875}}
 :root[data-theme="dark"]{--bg:#0f1a26;--fg:#e6eef7;--card:#18283a;--ac:#6db3ea;--ac2:#55d4e4;--tip:#1f3650;--mu:#9fb3c8;--bd:#2c4560;--gr:#2c4560;--ax:#3d5875}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);line-height:1.7;font-size:16px}
+body{background:var(--bg);color:var(--fg);line-height:1.75;font-size:16px}
 :focus-visible{outline:3px solid #5ee0ef;outline-offset:2px}
 a{color:var(--ac)}
-/* —— 图表令牌（按 dataviz 规范：浅/深两套，各自通过验证）—— */
+/* 图表令牌（dataviz 规范，浅/深两套均通过可访问性验证） */
 .viz-root{color-scheme:light;--surf:var(--card);--tp:var(--fg);--ts:var(--mu);
 --s1:#2b7bba;--s2:#1fb5c9;--s3:#e07b39;--dem:#9db2c8;--seqL:#b7d3f6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .viz-root{color-scheme:dark;--s1:#3d7fbc;--s2:#2b9c76;--s3:#c96e35;--dem:#5c718a;--seqL:#2d5f90}}
-:root[data-theme="dark"] .viz-root{color-scheme:dark;--s1:#3d7fbc;--s2:#2b9c76;--s3:#c96e35;--dem:#5c718a;--seqL:#2d5f90}
-/* —— 顶部导航 —— */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:1rem;padding:.6rem 1.2rem;
+:root[data-theme="dark"] .viz-root{color-scheme:dark;--s1:#3d7fbc;--s2:#2b9c76;--s3:#c96e35;--dem:#5c718a;--seqL:#2d5f90}}
+/* 导航 */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:1rem;padding:.55rem 1.2rem;
 background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
 nav.st{border-bottom-color:var(--bd);box-shadow:0 2px 12px #00000012}
 nav .logo{font-weight:800;font-size:1.05rem;color:var(--fg);text-decoration:none;white-space:nowrap}
@@ -40,59 +39,90 @@ nav .ctl button{border:1px solid var(--bd);background:var(--card);color:var(--fg
 nav .ctl button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 #th{width:34px;padding:.28rem 0;text-align:center}
 @media(max-width:860px){nav .links{display:none}}
-/* —— 英雄区 —— */
-header.hero{background:radial-gradient(circle at 70% 0,#1fb5c9 0,transparent 55%),linear-gradient(135deg,#0b2a4a,#1b5e9b);color:#fff;
-padding:7rem 1rem 3.4rem;text-align:center;position:relative;overflow:hidden}
-header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:60px;background:linear-gradient(180deg,transparent,var(--bg))}
+/* 英雄区：左文右图 */
+header.hero{background:radial-gradient(circle at 78% 8%,#1fb5c9 0,transparent 50%),linear-gradient(135deg,#0b2a4a,#1b5e9b);color:#fff;
+padding:6.4rem 1.2rem 3rem;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:70px;background:linear-gradient(180deg,transparent,var(--bg))}
+.hero-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:2.2rem;align-items:center}
 .badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;border-radius:16px;padding:.28rem 1rem;font-size:.88rem;margin-bottom:1.1rem}
-header.hero h1{font-size:clamp(1.9rem,4.6vw,3.1rem);letter-spacing:-.5px;line-height:1.25;max-width:900px;margin:0 auto .8rem}
-header.hero h1 span{color:#5ee0ef}
-header.hero .sub{opacity:.92;max-width:720px;margin:0 auto 1.2rem;font-size:1.02rem}
-.chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.4rem}
+header.hero h1{font-size:clamp(2rem,4.8vw,3.2rem);letter-spacing:-.5px;line-height:1.22;margin-bottom:.9rem}
+header.hero h1 .hi{color:#5ee0ef}
+header.hero .sub{opacity:.93;font-size:1.03rem;margin-bottom:1.3rem;max-width:560px}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
 .chips i{font-style:normal;background:#ffffff22;border:1px solid #ffffff44;border-radius:16px;padding:.25rem .85rem;font-size:.85rem}
-.cta{display:inline-block;background:#5ee0ef;color:#06283d;font-weight:700;padding:.72rem 1.7rem;border-radius:26px;text-decoration:none;margin:.25rem}
-.cta.ghost{background:transparent;color:#fff;border:1px solid #ffffffaa}
-/* —— 主体布局 —— */
+.cta{display:inline-block;background:#5ee0ef;color:#06283d;font-weight:700;padding:.72rem 1.7rem;border-radius:26px;text-decoration:none;margin:.2rem .4rem .2rem 0;box-shadow:0 6px 18px #5ee0ef33}
+.cta:hover{transform:translateY(-2px)}
+.cta.ghost{background:transparent;color:#fff;border:1px solid #ffffffaa;box-shadow:none}
+/* 英雄插图：手机 + 骨骼动作 */
+.hero-vis{display:flex;justify-content:center}
+.phone{width:min(300px,86%);aspect-ratio:9/19;background:#0d1b29;border:1px solid #ffffff33;border-radius:34px;padding:14px;position:relative;box-shadow:0 24px 60px #00000055}
+.phone .scr{background:var(--tip);border-radius:22px;height:100%;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;padding-top:12px}
+.phone .pt{font-size:.7rem;color:#5ee0ef;font-weight:700;letter-spacing:.06em}
+.phone .pv{font-size:1.05rem;font-weight:800;color:var(--fg);margin-top:2px}
+.phone .pv small{font-size:.68rem;color:var(--mu);font-weight:400;margin-left:4px}
+.phone .pn{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.72rem;color:var(--mu)}
+.phone svg{width:78%;margin-top:6px}
+.arm{transform-box:view-box;transform-origin:120px 80px;animation:raise 4.5s ease-in-out infinite}
+@keyframes raise{0%,18%{transform:rotate(0deg)}55%,72%{transform:rotate(46deg)}100%{transform:rotate(0deg)}}
+@media (prefers-reduced-motion:reduce){.arm{animation:none}}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-vis{order:2;margin-top:1.6rem}.phone{width:min(240px,70%)}}
+/* 主体 */
 main{max-width:1080px;margin:0 auto;padding:0 1.1rem}
-section{padding:3.6rem 0 1rem;scroll-margin-top:70px}
-.kick{display:inline-block;color:var(--ac);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
-h2.sec{font-size:clamp(1.4rem,3vw,1.9rem);margin-bottom:.5rem;color:var(--fg);letter-spacing:-.3px}
-p.lead{color:var(--mu);max-width:760px;margin-bottom:1.6rem}
-.card{background:var(--card);border-radius:14px;padding:1.4rem;box-shadow:0 2px 10px #00000013;border:1px solid var(--bd)}
+section{padding:3.4rem 0 1rem;scroll-margin-top:70px}
+.kick{display:inline-flex;align-items:center;gap:.45rem;color:var(--ac);font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.kick::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--ac)}
+h2.sec{font-size:clamp(1.45rem,3vw,1.95rem);margin-bottom:.5rem;letter-spacing:-.3px}
+p.lead{color:var(--mu);max-width:780px;margin-bottom:1.6rem}
+.card{background:var(--card);border-radius:14px;padding:1.35rem;box-shadow:0 2px 10px #00000013;border:1px solid var(--bd);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 22px #0000001c}
+.card h3{margin:.55rem 0 .3rem;font-size:1.05rem}
 .grid{display:grid;gap:1rem}
-.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-.g5{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-/* —— 统计大数字 —— */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.9rem;margin:1.2rem 0 .5rem}
-.stat{background:var(--card);border-radius:14px;padding:1.2rem 1rem;text-align:center;border:1px solid var(--bd)}
-.stat b{display:block;font-size:2.3rem;color:var(--ac);line-height:1.15}
-.stat span{font-size:.9rem;color:var(--mu)}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.ic{width:30px;height:30px;color:var(--ac)}
+.ic svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mu{color:var(--mu);font-size:.92rem}
+/* 统计大数字 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.9rem;margin-top:1.1rem}
+.stat{background:var(--card);border-radius:14px;padding:1.15rem 1rem;text-align:center;border:1px solid var(--bd)}
+.stat b{display:block;font-size:2.25rem;color:var(--ac);line-height:1.15;font-variant-numeric:tabular-nums}
+.stat span{font-size:.88rem;color:var(--mu)}
+.hero .stats{margin-top:1.5rem;max-width:1120px;margin-left:auto;margin-right:auto}
+.hero .stat{background:#ffffff14;border-color:#ffffff22}
+.hero .stat b{color:#5ee0ef}
+.hero .stat span{color:#cfd8e6}
 .src{font-size:.8rem;color:var(--mu);margin-top:.4rem}
-/* —— 流程步骤 —— */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.8rem;margin-top:1rem}
-.steps .st{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1rem .9rem;position:relative}
-.steps .st b{display:block;color:var(--ac);margin-bottom:.3rem}
-.steps .st .n{position:absolute;top:.6rem;right:.8rem;font-size:.8rem;color:var(--mu)}
-.steps .st p{font-size:.88rem;color:var(--mu)}
-/* —— 智能体流水线 —— */
-.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-top:1rem}
-.agents .ag{background:var(--tip);border-radius:12px;padding:.9rem;text-align:center;border:1px solid var(--bd)}
+.hero .src{color:#b9c6d6;text-align:center}
+/* 流程五步 */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-top:1.2rem;position:relative}
+.steps::before{content:"";position:absolute;top:34px;left:8%;right:8%;height:2px;background:var(--bd)}
+.steps .st{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1rem .8rem;text-align:center;position:relative}
+.steps .st:hover{transform:translateY(-3px)}
+.steps .n{width:36px;height:36px;margin:0 auto .6rem;border-radius:50%;background:var(--ac);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;box-shadow:0 0 0 4px var(--bg)}
+.steps .st b{color:var(--ac);display:block;margin-bottom:.25rem}
+.steps .st p{font-size:.85rem;color:var(--mu)}
+@media(max-width:880px){.steps{grid-template-columns:1fr}.steps::before{left:18px;right:auto;top:10px;bottom:10px;width:2px;height:auto}
+.steps .st{text-align:left;padding-left:3.2rem}.steps .n{position:absolute;left:-8px;top:14px;margin:0}}
+/* 智能体流水线 */
+.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-top:1.2rem}
+.agents .ag{background:var(--tip);border-radius:12px;padding:.95rem;text-align:center;border:1px solid var(--bd);position:relative}
 .agents .ag b{display:block;color:var(--ac);margin-bottom:.25rem}
-.agents .ag small{color:var(--mu);display:block;line-height:1.45}
-/* —— 提示块 —— */
-.tip{background:var(--tip);padding:1rem 1.1rem;border-left:4px solid var(--ac);border-radius:8px;font-size:.94rem;margin-top:1rem}
-.warnb{background:#fff4d6;color:#6b4a00;padding:.55rem .9rem;border-radius:10px;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:.8rem}
+.agents .ag small{color:var(--mu);display:block;line-height:1.5}
+.agents .ag::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--ac);font-weight:700;z-index:1}
+.agents .ag:last-child::after{content:none}
+@media(max-width:700px){.agents .ag::after{content:none}}
+/* 提示块 */
+.tip{background:var(--tip);padding:1rem 1.15rem;border-left:4px solid var(--ac);border-radius:8px;font-size:.94rem;margin-top:1.1rem}
+.warnb{background:#fff4d6;color:#6b4a00;padding:.55rem .9rem;border-radius:10px;font-size:.88rem;display:inline-flex;align-items:center;gap:.45rem;margin-bottom:.9rem}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .warnb{background:#3a2f14;color:#ffd970}}
 :root[data-theme="dark"] .warnb{background:#3a2f14;color:#ffd970}
-/* —— 图表卡片 —— */
+/* 图表卡片 */
 .chart-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:1.3rem 1.3rem 1rem;margin-top:1rem}
 .chart-card h3{font-size:1.02rem;margin-bottom:.2rem}
 .chart-card .sub2{font-size:.84rem;color:var(--mu);margin-bottom:.8rem}
 .legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin:.3rem 0 .5rem;font-size:.85rem;color:var(--mu)}
 .legend i{display:inline-block;width:16px;height:10px;border-radius:5px;margin-right:.35rem;vertical-align:baseline;background:var(--s1)}
-.chart-wrap{position:relative;width:100%}
+.chart-wrap{position:relative;width:100%;min-height:120px}
 .chart-wrap svg{width:100%;height:auto;display:block}
 #tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:.5rem .8rem;font-size:.85rem;box-shadow:0 4px 14px #00000022;opacity:0;transition:opacity .12s;z-index:5;white-space:nowrap;color:var(--fg)}
 #tip b{display:block}
@@ -100,24 +130,24 @@ p.lead{color:var(--mu);max-width:760px;margin-bottom:1.6rem}
 #tip .row i{width:14px;height:3px;border-radius:2px;display:inline-block}
 details.data-tbl{margin-top:.7rem;font-size:.85rem}
 details.data-tbl summary{cursor:pointer;color:var(--ac);font-weight:600}
-details.data-tbl table{border-collapse:collapse;margin-top:.5rem;width:100%;max-width:480px}
+details.data-tbl table{border-collapse:collapse;margin-top:.5rem;width:100%;max-width:500px}
 details.data-tbl td,details.data-tbl th{padding:.3rem .6rem;border-bottom:1px solid var(--bd);text-align:right;font-variant-numeric:tabular-nums}
 details.data-tbl th:first-child,details.data-tbl td:first-child{text-align:left}
-/* —— 路线图 —— */
-.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.9rem;margin-top:1rem}
-.road .rm{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1rem}
-.road .rm b{color:var(--ac);display:block}
-.road .rm em{display:block;font-style:normal;font-size:.78rem;color:var(--mu);margin-bottom:.3rem}
-/* —— 页脚 —— */
+/* 路线图 */
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:.9rem;margin-top:1.2rem}
+.road .rm{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1.05rem;border-top:3px solid var(--ac)}
+.road .rm b{color:var(--ac);display:block;margin-bottom:.2rem}
+.road .rm em{display:block;font-style:normal;font-size:.78rem;color:var(--mu);margin-bottom:.35rem}
+/* 页脚 */
 footer{max-width:1080px;margin:2.5rem auto 0;padding:1.4rem 1.1rem 2rem;border-top:1px solid var(--bd);font-size:.85rem;color:var(--mu)}
-footer .fcta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+footer .fcta{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:1rem}
 footer .fcta a{color:var(--ac);font-weight:600;text-decoration:none}
 footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
-/* —— 动效 —— */
+/* 动效 */
 .js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
 .js .rv.on{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-@media print{nav,.cta,.lang{display:none!important}.rv{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media print{nav,.cta,.lang{display:none!important}.js .rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -126,131 +156,197 @@ footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
 <nav id="nav" aria-label="Navigation">
   <a class="logo" href="#top">ReMotion <span>AI</span></a>
   <div class="links">
-    <a href="#problem" data-t="n1"></a><a href="#solution" data-t="n2"></a><a href="#dtx" data-t="n3"></a>
-    <a href="#tech" data-t="n4"></a><a href="#data" data-t="n5"></a><a href="#market" data-t="n6"></a><a href="#roadmap" data-t="n7"></a>
+    <a href="#problem" data-t="n1">痛点</a><a href="#solution" data-t="n2">方案</a><a href="#dtx" data-t="n3">数字疗法</a>
+    <a href="#tech" data-t="n4">技术</a><a href="#data" data-t="n5">效果</a><a href="#market" data-t="n6">市场</a><a href="#roadmap" data-t="n7">路线图</a>
   </div>
   <div class="ctl">
     <div class="lang" id="lang"></div>
-    <button type="button" id="th" aria-label="Toggle theme">◐</button>
+    <button type="button" id="th" aria-label="切换明暗主题">◐</button>
   </div>
 </nav>
 
 <header class="hero" id="top">
-  <div class="badge" data-t="badge"></div>
-  <h1><span>ReMotion AI</span> · <span data-t="ht"></span></h1>
-  <p class="sub" data-t="hsub"></p>
-  <div class="chips"><i data-t="c1"></i><i data-t="c2"></i><i data-t="c3"></i></div>
-  <div>
-    <a class="cta" id="ctaDemo" href="https://fanxinxian06-source.github.io/remotion-ai/" target="_blank" rel="noopener" data-t="cta1"></a>
-    <a class="cta ghost" href="#data" data-t="cta2"></a>
+  <div class="hero-in">
+    <div>
+      <div class="badge" data-t="badge">远程康复 × 数字疗法 · 参赛作品</div>
+      <h1><span class="hi">ReMotion AI</span><br><span data-t="ht">远程康复与数字疗法</span></h1>
+      <p class="sub" data-t="hsub">把治疗师的专业指导延伸到家里：AI 动作评估 + 多智能体协作 + 治疗师把关，构建循证的远程康复与数字疗法闭环。</p>
+      <div class="chips"><i data-t="c1">智能体 AI × 治疗师把关</i><i data-t="c2">开放 Agent Harness</i><i data-t="c3">端侧 · 隐私优先</i></div>
+      <div>
+        <a class="cta" href="https://fanxinxian06-source.github.io/remotion-ai/" target="_blank" rel="noopener" data-t="cta1">体验互动演示 ↗</a>
+        <a class="cta ghost" href="#data" data-t="cta2">查看效果数据</a>
+      </div>
+    </div>
+    <div class="hero-vis" aria-hidden="true">
+      <div class="phone">
+        <div class="scr">
+          <div class="pt">ReMotion AI</div>
+          <div class="pv">92°<small data-t="pv">肩前屈</small></div>
+          <svg viewBox="0 0 240 320">
+            <circle cx="120" cy="46" r="21" fill="none" stroke="#8aa4bd" stroke-width="7"/>
+            <line x1="120" y1="67" x2="120" y2="150" stroke="#8aa4bd" stroke-width="9" stroke-linecap="round"/>
+            <line x1="120" y1="150" x2="98" y2="238" stroke="#8aa4bd" stroke-width="8" stroke-linecap="round"/>
+            <line x1="120" y1="150" x2="142" y2="238" stroke="#8aa4bd" stroke-width="8" stroke-linecap="round"/>
+            <g class="arm">
+              <line x1="120" y1="85" x2="120" y2="165" stroke="#5ee0ef" stroke-width="9" stroke-linecap="round"/>
+              <line x1="120" y1="165" x2="120" y2="232" stroke="#5ee0ef" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="120" cy="85" r="6" fill="#fff"/>
+              <circle cx="120" cy="165" r="5" fill="#fff"/>
+            </g>
+            <path d="M 138 118 A 60 60 0 0 1 128 88" fill="none" stroke="#2e9e6a" stroke-width="2.5" stroke-dasharray="5 5"/>
+            <text x="150" y="108" font-size="10" fill="#2e9e6a">120°</text>
+          </svg>
+          <div class="pn" data-t="pn">动作准确度 96% · 达标</div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="stats">
-    <div class="stat" style="background:#ffffff14;border-color:#ffffff22"><b>2.4B</b><span data-t="st1" style="color:#cfd8e6"></span></div>
-    <div class="stat" style="background:#ffffff14;border-color:#ffffff22"><b>&gt;50%</b><span data-t="st2" style="color:#cfd8e6"></span></div>
-    <div class="stat" style="background:#ffffff14;border-color:#ffffff22"><b>×2</b><span data-t="st3" style="color:#cfd8e6"></span></div>
+    <div class="stat"><b>2.4B</b><span data-t="st1">全球约 24 亿人可从康复中获益</span></div>
+    <div class="stat"><b>&gt;50%</b><span data-t="st2">部分中低收入国家一半以上需求未满足</span></div>
+    <div class="stat"><b>×2</b><span data-t="st3">60 岁以上人口预计 2050 年翻番</span></div>
   </div>
-  <p class="src" style="color:#b9c6d6" data-t="stsrc"></p>
+  <p class="src" data-t="stsrc">来源：世界卫生组织（WHO）《康复》情况说明书，2024 年 4 月 22 日。</p>
 </header>
 
 <main id="main">
 
 <section id="problem" class="rv">
-  <span class="kick" data-t="pKick"></span>
-  <h2 class="sec" data-t="pTitle"></h2>
-  <p class="lead" data-t="pLead"></p>
+  <span class="kick" data-t="pKick">痛点</span>
+  <h2 class="sec" data-t="pTitle">康复需求巨大，服务远远跟不上</h2>
+  <p class="lead" data-t="pLead">康复不是奢侈品。但当患者离开医院，指导、监测与安全几乎同时消失。</p>
   <div class="grid g3">
-    <div class="card"><b style="color:var(--ac)">①</b><h3 style="margin:.4rem 0 .3rem" data-t="p1t"></h3><p class="mu" data-t="p1"></p></div>
-    <div class="card"><b style="color:var(--ac)">②</b><h3 style="margin:.4rem 0 .3rem" data-t="p2t"></h3><p class="mu" data-t="p2"></p></div>
-    <div class="card"><b style="color:var(--ac)">③</b><h3 style="margin:.4rem 0 .3rem" data-t="p3t"></h3><p class="mu" data-t="p3"></p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 7 4-16 2 9h6"/></svg></div><h3 data-t="p1t">需求规模</h3><p class="mu" data-t="p1">全球约 24 亿人患有可从康复中获益的健康问题，覆盖卒中、骨科术后、颈肩腰腿痛等。</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 data-t="p2t">服务缺口</h3><p class="mu" data-t="p2">在部分中低收入国家，一半以上有康复需求的人得不到服务；康复治疗师长期短缺。</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19c4-1 8-1 10-5s1-7 6-9c-4 1-7 3-8 6"/></svg></div><h3 data-t="p3t">老龄化加速</h3><p class="mu" data-t="p3">预计到 2050 年，60 岁以上人口将翻一番，居家康复需求持续上升。</p></div>
   </div>
-  <div class="tip" data-t="pGap"></div>
-  <p class="src" data-t="pSrc"></p>
+  <div class="tip"><span data-t="pGap"><b>出院后的断层：</b>患者回家后训练依从性下降、动作无人纠正、风险无人发现——这是远程康复要补上的最后一公里。</span></div>
+  <p class="src" data-t="pSrc">数据来源见首屏 WHO 标注。</p>
 </section>
 
 <section id="solution" class="rv">
-  <span class="kick" data-t="sKick"></span>
-  <h2 class="sec" data-t="sTitle"></h2>
-  <p class="lead" data-t="sLead"></p>
-  <div class="steps" id="steps"></div>
-  <div class="tip"><b data-t="sHitl"></b></div>
+  <span class="kick" data-t="sKick">解决方案</span>
+  <h2 class="sec" data-t="sTitle">一个闭环，把治疗师延伸到家里</h2>
+  <p class="lead" data-t="sLead">从评估到处方、从训练到随访，五个环节无缝衔接；每个环节的数据回流治疗师，形成持续优化的数字疗法闭环。</p>
+  <div class="steps">
+    <div class="st"><span class="n">1</span><b data-t="sp1t">评估</b><p data-t="sp1">AI 摄像头动作评估：关节角度、活动度、代偿识别</p></div>
+    <div class="st"><span class="n">2</span><b data-t="sp2t">处方</b><p data-t="sp2">按病症、阶段、年龄、疼痛生成个性化训练计划</p></div>
+    <div class="st"><span class="n">3</span><b data-t="sp3t">训练</b><p data-t="sp3">实时动作指导与纠错，超范围立即提醒</p></div>
+    <div class="st"><span class="n">4</span><b data-t="sp4t">监测</b><p data-t="sp4">疼痛与活动度持续记录，趋势一目了然</p></div>
+    <div class="st"><span class="n">5</span><b data-t="sp5t">随访</b><p data-t="sp5">治疗师看板 + 智能体建议，异常自动转交</p></div>
+  </div>
+  <div class="tip"><span data-t="sHitl"><b>治疗师把关：</b>智能体只能提出建议，任何方案变更都必须由治疗师批准。高风险决策永远由人做出。</span></div>
 </section>
 
 <section id="dtx" class="rv">
-  <span class="kick" data-t="dKick"></span>
-  <h2 class="sec" data-t="dTitle"></h2>
-  <p class="lead" data-t="dLead"></p>
-  <div class="grid g4" id="dtxCards"></div>
-  <div class="tip" data-t="dUse"></div>
+  <span class="kick" data-t="dKick">数字疗法（DTx）</span>
+  <h2 class="sec" data-t="dTitle">不只是 App，而是处方级数字疗法</h2>
+  <p class="lead" data-t="dLead">数字疗法的核心标准：循证、处方级、可监测、可监管。ReMotion AI 按此设计。</p>
+  <div class="grid g4">
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 6 4 3-4 3-1 6H9l-1-6-4-3 4-3z"/></svg></div><h3 data-t="d1t">循证基础</h3><p class="mu" data-t="d1">训练剂量与进阶规则参照康复医学指南设计</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div><h3 data-t="d2t">处方级个性化</h3><p class="mu" data-t="d2">按病症、阶段、年龄、疼痛动态调整计划</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 7 4-16 2 9h6"/></svg></div><h3 data-t="d3t">持续监测</h3><p class="mu" data-t="d3">活动度、疼痛、依从性数据持续回流治疗师</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3 data-t="d4t">监管路径</h3><p class="mu" data-t="d4">FDA SaMD、欧盟 MDR 与 AI Act、韩国 MFDS 数字医疗器械（与法规顾问确认）</p></div>
+  </div>
+  <div class="tip"><span data-t="dUse"><b>预期用途：</b>在治疗师监督下的居家康复训练指导与监测辅助，不用于诊断。</span></div>
 </section>
 
 <section id="tech" class="rv">
-  <span class="kick" data-t="tKick"></span>
-  <h2 class="sec" data-t="tTitle"></h2>
-  <p class="lead" data-t="tLead"></p>
-  <div class="agents" id="agents"></div>
-  <div class="grid g3" id="techCards" style="margin-top:1rem"></div>
-  <div class="tip"><span data-t="tHarness"></span> <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="tLink"></a></div>
+  <span class="kick" data-t="tKick">核心技术</span>
+  <h2 class="sec" data-t="tTitle">六个智能体协作，每一步都可审计</h2>
+  <p class="lead" data-t="tLead">感知、评估、规划、守卫、复核、审计——六个智能体分工协作，每条决策附带依据与审计哈希；模型可更换，护栏不可关闭。</p>
+  <div class="agents">
+    <div class="ag"><b data-t="a1t">感知</b><small data-t="a1">动作数据采集（姿态估计）</small></div>
+    <div class="ag"><b data-t="a2t">评估</b><small data-t="a2">关节角度与目标对比</small></div>
+    <div class="ag"><b data-t="a3t">规划</b><small data-t="a3">个性化训练计划生成</small></div>
+    <div class="ag"><b data-t="a4t">守卫</b><small data-t="a4">安全护栏与红旗症状筛查</small></div>
+    <div class="ag"><b data-t="a5t">复核</b><small data-t="a5">治疗师批准变更</small></div>
+    <div class="ag"><b data-t="a6t">审计</b><small data-t="a6">决策记录与 SHA-256 哈希</small></div>
+  </div>
+  <div class="grid g3" style="margin-top:1.1rem">
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div><h3 data-t="t1t">开放 Agent Harness</h3><p class="mu" data-t="t1">与模型无关：可更换模型，开放工具接口（MCP 风格），输出 FHIR CarePlan</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><h3 data-t="t2t">端侧 · 隐私优先</h3><p class="mu" data-t="t2">端侧推理让影像留在设备内，数据边界可选</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7l7 4 7-4M3 7h18v12H3z"/></svg></div><h3 data-t="t3t">公平性计划</h3><p class="mu" data-t="t3">试点将按年龄、体型、肤色与光照条件评估姿态识别误差</p></div>
+  </div>
+  <div class="tip"><span data-t="tHarness">技术底座 AGENTA 2028 —— 深度整合 Agentic AI 与开源 Agent 基础设施：</span> <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="tLink">查看技术底座 ↗</a></div>
 </section>
 
 <section id="data" class="rv">
-  <span class="kick" data-t="eKick"></span>
-  <h2 class="sec" data-t="eTitle"></h2>
-  <p class="lead" data-t="eLead"></p>
-  <div class="warnb"><span aria-hidden="true">⚠</span><span data-t="eWarn"></span></div>
+  <span class="kick" data-t="eKick">效果数据</span>
+  <h2 class="sec" data-t="eTitle">依从性与活动度改善（示意）</h2>
+  <p class="lead" data-t="eLead">以下图表展示产品预期效果形态：实时反馈把依从性留在高位，个性化进阶推动活动度稳步改善。</p>
+  <div class="warnb"><span aria-hidden="true">⚠</span><span data-t="eWarn">以下均为示例数据（示意），用于展示产品形态，不代表临床结果；真实数据将在临床试点中获取。代码中以 DEMO-DATA 标注，可一键替换。</span></div>
   <div class="viz-root">
     <div class="chart-card">
-      <h3 data-t="ch1t"></h3>
-      <p class="sub2" data-t="ch1s"></p>
-      <div class="legend"><span><i style="background:var(--s1)"></i><span data-t="ch1l1"></span></span><span><i style="background:var(--dem)"></i><span data-t="ch1l2"></span></span></div>
-      <div class="chart-wrap" id="cw1"></div>
-      <details class="data-tbl"><summary data-t="tbl"></summary><table id="tb1"></table></details>
+      <h3 data-t="ch1t">4 周训练依从率：ReMotion AI vs 常规居家康复（示例）</h3>
+      <p class="sub2" data-t="ch1s">纵轴：每周训练完成率（%）。实时反馈 + 智能体提醒将依从性维持在 80% 以上。</p>
+      <div class="legend"><span><i style="background:var(--s1)"></i><span data-t="ch1l1">ReMotion AI</span></span><span><i style="background:var(--dem)"></i><span data-t="ch1l2">常规居家康复</span></span></div>
+      <div class="chart-wrap" id="cw1"><svg viewBox="0 0 640 300" role="img" aria-label="4 周训练依从率对比图（加载中）"><text x="320" y="150" text-anchor="middle" font-size="14" fill="var(--ts)">…</text></svg></div>
+      <details class="data-tbl"><summary data-t="tbl">查看数据表</summary>
+        <table><tr><th>周次</th><th>第1周</th><th>第2周</th><th>第3周</th><th>第4周</th></tr>
+        <tr><td>ReMotion AI</td><td>62%</td><td>71%</td><td>78%</td><td>86%</td></tr>
+        <tr><td>常规居家康复</td><td>48%</td><td>46%</td><td>44%</td><td>41%</td></tr></table>
+      </details>
     </div>
     <div class="chart-card">
-      <h3 data-t="ch2t"></h3>
-      <p class="sub2" data-t="ch2s"></p>
-      <div class="legend"><span><i style="background:var(--seqL)"></i><span data-t="ch2l1"></span></span><span><i style="background:var(--s1)"></i><span data-t="ch2l2"></span></span></div>
-      <div class="chart-wrap" id="cw2"></div>
-      <details class="data-tbl"><summary data-t="tbl"></summary><table id="tb2"></table></details>
+      <h3 data-t="ch2t">干预前后活动度改善（占目标 %，示例）</h3>
+      <p class="sub2" data-t="ch2s">三个常见康复场景：4 周个性化训练后活动度向目标明显靠拢。</p>
+      <div class="legend"><span><i style="background:var(--seqL)"></i><span data-t="ch2l1">干预前</span></span><span><i style="background:var(--s1)"></i><span data-t="ch2l2">干预后</span></span></div>
+      <div class="chart-wrap" id="cw2"><svg viewBox="0 0 640 280" role="img" aria-label="干预前后活动度对比图（加载中）"><text x="320" y="140" text-anchor="middle" font-size="14" fill="var(--ts)">…</text></svg></div>
+      <details class="data-tbl"><summary data-t="tbl">查看数据表</summary>
+        <table><tr><th>场景</th><th>干预前</th><th>干预后</th></tr>
+        <tr><td>肩前屈</td><td>45%</td><td>92%</td></tr>
+        <tr><td>膝屈曲</td><td>38%</td><td>88%</td></tr>
+        <tr><td>腰部活动</td><td>51%</td><td>90%</td></tr></table>
+      </details>
     </div>
   </div>
 </section>
 
 <section id="market" class="rv">
-  <span class="kick" data-t="mKick"></span>
-  <h2 class="sec" data-t="mTitle"></h2>
-  <p class="lead" data-t="mLead"></p>
+  <span class="kick" data-t="mKick">市场</span>
+  <h2 class="sec" data-t="mTitle">远程康复与数字疗法市场快速增长</h2>
+  <p class="lead" data-t="mLead">老龄化和康复资源短缺推动需求；数字疗法在全球主要市场获得监管认可，市场进入快车道。以下规模数据为公开市场研究的约数（示例）。</p>
   <div class="stats">
-    <div class="stat"><b>$8.1B</b><span data-t="m1"></span></div>
-    <div class="stat"><b>~21%</b><span data-t="m2"></span></div>
-    <div class="stat"><b>2.4B</b><span data-t="m3"></span></div>
+    <div class="stat"><b>$8.1B</b><span data-t="m1">全球数字疗法市场约 $8.1B（2024，约数）</span></div>
+    <div class="stat"><b>~21%</b><span data-t="m2">复合年增长率约 21%（2024–2030，约数）</span></div>
+    <div class="stat"><b>2.4B</b><span data-t="m3">24 亿潜在受益人群（WHO）</span></div>
   </div>
   <div class="viz-root">
     <div class="chart-card">
-      <h3 data-t="ch3t"></h3>
-      <p class="sub2" data-t="ch3s"></p>
-      <div class="chart-wrap" id="cw3"></div>
-      <details class="data-tbl"><summary data-t="tbl"></summary><table id="tb3"></table></details>
+      <h3 data-t="ch3t">全球数字疗法市场规模（示例，单位：十亿美元）</h3>
+      <p class="sub2" data-t="ch3s">基于公开市场研究报告的约数，仅用于展示趋势。</p>
+      <div class="chart-wrap" id="cw3"><svg viewBox="0 0 640 300" role="img" aria-label="市场规模趋势图（加载中）"><text x="320" y="150" text-anchor="middle" font-size="14" fill="var(--ts)">…</text></svg></div>
+      <details class="data-tbl"><summary data-t="tbl">查看数据表</summary>
+        <table><tr><th>年份</th><th>2024</th><th>2025</th><th>2026</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th></tr>
+        <tr><td>市场规模</td><td>$8.1B</td><td>$9.8B</td><td>$11.9B</td><td>$14.4B</td><td>$17.4B</td><td>$21.0B</td><td>$25.3B</td></tr></table>
+      </details>
     </div>
   </div>
-  <p class="src" data-t="mSrc"></p>
+  <p class="src" data-t="mSrc">市场数据为公开研究报告约数（示例），非财务预测承诺。</p>
 </section>
 
 <section id="roadmap" class="rv">
-  <span class="kick" data-t="rKick"></span>
-  <h2 class="sec" data-t="rTitle"></h2>
-  <p class="lead" data-t="rLead"></p>
-  <div class="road" id="road"></div>
+  <span class="kick" data-t="rKick">路线图</span>
+  <h2 class="sec" data-t="rTitle">从原型到发布</h2>
+  <p class="lead" data-t="rLead">按临床证据与法规路径逐步推进，每一步都有可验证的里程碑。</p>
+  <div class="road">
+    <div class="rm"><em data-t="r1e">现在</em><b data-t="r1t">原型</b><p class="mu" data-t="r1">交互演示、智能体 Harness 参考设计、三语界面</p></div>
+    <div class="rm"><em data-t="r2e">下一步</em><b data-t="r2t">临床试点</b><p class="mu" data-t="r2">在合作机构验证：关节角度误差（对照量角器）、依从性、安全事件</p></div>
+    <div class="rm"><em data-t="r3e">2027</em><b data-t="r3t">CES 2027 展示</b><p class="mu" data-t="r3">现场演示与创新奖申报</p></div>
+    <div class="rm"><em data-t="r4e">2028</em><b data-t="r4t">CES 2028 发布</b><p class="mu" data-t="r4">完成法规路径与产品化</p></div>
+  </div>
 </section>
 
 </main>
 
 <footer>
   <div class="fcta">
-    <a href="https://fanxinxian06-source.github.io/remotion-ai/" target="_blank" rel="noopener" data-t="f1"></a>
-    <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="f2"></a>
+    <a href="https://fanxinxian06-source.github.io/remotion-ai/" target="_blank" rel="noopener" data-t="f1">体验互动演示 ↗</a>
+    <a href="https://fanxinxian06-source.github.io/agenta2028/" target="_blank" rel="noopener" data-t="f2">技术底座 AGENTA 2028 ↗</a>
   </div>
-  <div data-t="foot"></div>
-  <p class="disc" data-t="fdisc"></p>
+  <div data-t="foot">ReMotion AI · 远程康复与数字疗法 参赛页 ©2026</div>
+  <p class="disc" data-t="fdisc">⚠ 本页面为参赛演示作品：效果数据均为示例，非医疗器械，不构成任何医疗建议，不替代专业康复医师的诊断与治疗。</p>
 </footer>
 
 <div id="tip" role="tooltip" aria-hidden="true"></div>
@@ -258,18 +354,19 @@ footer .disc{font-size:.8rem;opacity:.85;margin-top:.6rem}
 <script>
 'use strict';
 /* ============================================================
- * ReMotion AI 参赛页 — 三语（中/英/韩）· 单文件 · 无外部依赖
- * 图表按 dataviz 规范：色板已通过可访问性验证（浅/深两套）
- * ★ 示例数据替换点：搜索 “DEMO-DATA” 即可找到所有示意数据
+ * ReMotion AI 参赛页 v2 — 静态优先：全部中文内容直接写在 HTML 中，
+ * 即使 JS 被禁用或报错，页面依然完整可读；JS 仅增强（语言/主题/图表/动效）。
+ * ★ DEMO-DATA：所有示例数据在 CD 对象中，可一键替换为真实数据。
  * ============================================================ */
 var Ls=[["zh","中文"],["en","English"],["ko","한국어"]],L=0;
 var T={
 skip:["跳到主要内容","Skip to main content","본문으로 건너뛰기"],
 badge:["远程康复 × 数字疗法 · 参赛作品","Telerehabilitation × Digital Therapeutics · Competition entry","원격 재활 × 디지털 치료제 · 출품작"],
 ht:["远程康复与数字疗法","Telerehabilitation & Digital Therapeutics","원격 재활 & 디지털 치료제"],
-hsub:["ReMotion AI 把治疗师的专业指导延伸到家里：AI 动作评估 + 多智能体协作 + 治疗师把关，构建循证的远程康复与数字疗法闭环。","ReMotion AI extends the therapist's guidance into the home: AI movement assessment + cooperating agents + a human always in charge — an evidence-based telerehab & DTx loop.","ReMotion AI는 치료사의 전문 지도를 집으로 확장합니다. AI 동작 평가 + 다중 에이전트 협업 + 치료사 검토로 근거 기반 원격 재활·DTx 폐루프를 만듭니다."],
+hsub:["把治疗师的专业指导延伸到家里：AI 动作评估 + 多智能体协作 + 治疗师把关，构建循证的远程康复与数字疗法闭环。","Extend the therapist's guidance into the home: AI movement assessment + cooperating agents + a human always in charge — an evidence-based telerehab & DTx loop.","치료사의 전문 지도를 집으로 확장합니다. AI 동작 평가 + 다중 에이전트 협업 + 치료사 검토로 근거 기반 원격 재활·DTx 폐루프를 만듭니다."],
 c1:["智能体 AI × 治疗师把关","Agentic AI × human-in-the-loop","에이전틱 AI × 치료사 검토"],c2:["开放 Agent Harness","Open agent harness","오픈 에이전트 하네스"],c3:["端侧 · 隐私优先","On-device · privacy-first","온디바이스 · 프라이버시 우선"],
 cta1:["体验互动演示 ↗","Try the live demo ↗","라이브 데모 체험 ↗"],cta2:["查看效果数据","See the data","효과 데이터 보기"],
+pv:["肩前屈","Shoulder flexion","어깨 굴곡"],pn:["动作准确度 96% · 达标","Accuracy 96% · on target","동작 정확도 96% · 달성"],
 st1:["全球约 24 亿人可从康复中获益","people worldwide may benefit from rehabilitation","전 세계 약 24억 명이 재활의 도움을 받을 수 있음"],
 st2:["部分中低收入国家一半以上需求未满足","in some LMICs, over half of rehab needs go unmet","일부 저·중소득 국가에서 재활 수요의 절반 이상 미충족"],
 st3:["60 岁以上人口预计 2050 年翻番","over-60 population predicted to double by 2050","60세 이상 인구 2050년까지 두 배 전망"],
@@ -280,65 +377,60 @@ pLead:["康复不是奢侈品。但当患者离开医院，指导、监测与安
 p1t:["需求规模","Scale of need","수요 규모"],p1:["全球约 24 亿人患有可从康复中获益的健康问题，覆盖卒中、骨科术后、颈肩腰腿痛等。","About 2.4 billion people live with conditions that could benefit from rehab — stroke, post-op orthopedics, neck, shoulder and back pain.","약 24억 명이 재활의 도움을 받을 수 있는 건강 문제를 안고 있습니다(뇌졸중, 정형외과 수술 후, 목·어깨·허리 통증 등)."],
 p2t:["服务缺口","Service gap","서비스 격차"],p2:["在部分中低收入国家，一半以上有康复需求的人得不到服务；康复治疗师长期短缺。","In some low- and middle-income countries, over half of those in need receive nothing; therapists are in chronic shortage.","일부 저·중소득 국가에서는 재활이 필요한 사람의 절반 이상이 서비스를 받지 못하며 치료사도 만성적으로 부족합니다."],
 p3t:["老龄化加速","Aging accelerates","고령화 가속"],p3:["预计到 2050 年，60 岁以上人口将翻一番，居家康复需求持续上升。","The over-60 population is predicted to double by 2050 — home-based rehab demand keeps rising.","2050년까지 60세 이상 인구가 두 배로 늘어나 재택 재활 수요가 계속 증가할 전망입니다."],
-pGap:["<b>出院后的断层：</b>患者回家后训练依从性下降、动作无人纠正、风险无人发现——这是远程康复要补上的最后一公里。（团队观察，用于说明问题背景）","<b>The post-discharge gap:</b> adherence drops, movements go uncorrected, risks go unnoticed — the last mile telerehab exists to close. (Team observation, for context)","<b>퇴원 후 단절:</b> 집에 돌아가면 훈련 순응도가 떨어지고 동작 교정·위험 발견이 이루어지지 않습니다. 원격 재활이 메워야 할 마지막 1km입니다. (팀 관찰, 배경 설명용)"],
+pGap:["<b>出院后的断层：</b>患者回家后训练依从性下降、动作无人纠正、风险无人发现——这是远程康复要补上的最后一公里。","<b>The post-discharge gap:</b> adherence drops, movements go uncorrected, risks go unnoticed — the last mile telerehab exists to close.","<b>퇴원 후 단절:</b> 집에 돌아가면 훈련 순응도가 떨어지고 동작 교정·위험 발견이 이루어지지 않습니다. 원격 재활이 메워야 할 마지막 1km입니다."],
 pSrc:["数据来源见首屏 WHO 标注。","Data as cited from WHO in the hero section.","데이터 출처는 첫 화면의 WHO 표기를 참고하세요."],
 sKick:["解决方案","Solution","해법"],sTitle:["一个闭环，把治疗师延伸到家里","One closed loop that extends the therapist into the home","치료사를 집으로 확장하는 하나의 폐루프"],
 sLead:["从评估到处方、从训练到随访，五个环节无缝衔接；每个环节的数据回流治疗师，形成持续优化的数字疗法闭环。","From assessment to prescription, from training to follow-up — five steps connected; every step's data flows back to the therapist, closing the DTx loop.","평가부터 처방, 훈련부터 추적까지 5단계가 이어지고 각 단계의 데이터가 치료사에게 돌아와 지속적으로 최적화되는 DTx 폐루프입니다."],
-steps:[
-[["① 评估","① Assess","① 평가"],["AI 摄像头动作评估：关节角度、活动度、代偿识别","AI camera assessment: joint angles, range of motion, compensation detection","AI 카메라 동작 평가: 관절 각도·가동범위·보상 동작 감지"]],
-[["② 处方","② Prescribe","② 처방"],["按病症、阶段、年龄、疼痛生成个性化训练计划","Personalized plan by condition, stage, age and pain","질환·단계·연령·통증에 따른 맞춤 훈련 계획 생성"]],
-[["③ 训练","③ Train","③ 훈련"],["实时动作指导与纠错，超范围立即提醒","Live movement guidance and correction, instant out-of-range alerts","실시간 동작 지도·교정, 안전 범위 초과 시 즉시 경고"]],
-[["④ 监测","④ Monitor","④ 모니터링"],["疼痛与活动度持续记录，趋势一目了然","Continuous pain and ROM logging with clear trends","통증·가동범위 지속 기록, 추이를 한눈에 확인"]],
-[["⑤ 随访","⑤ Follow up","⑤ 추적"],["治疗师看板 + 智能体建议，异常自动转交","Therapist dashboard + agent proposals, anomalies auto-escalated","치료사 대시보드 + 에이전트 제안, 이상 징후 자동 전달"]]],
-sHitl:["治疗师把关：智能体只能提出建议，任何方案变更都必须由治疗师批准。高风险决策永远由人做出。","Human-in-the-loop: agents can only propose; every plan change requires therapist approval. High-risk decisions always stay human.","치료사 검토: 에이전트는 제안만 할 수 있으며 모든 계획 변경은 치료사 승인이 필요합니다. 고위험 결정은 항상 사람이 내립니다."],
+sp1t:["评估","Assess","평가"],sp1:["AI 摄像头动作评估：关节角度、活动度、代偿识别","AI camera assessment: joint angles, ROM, compensation detection","AI 카메라 동작 평가: 관절 각도·가동범위·보상 동작 감지"],
+sp2t:["处方","Prescribe","처방"],sp2:["按病症、阶段、年龄、疼痛生成个性化训练计划","Personalized plan by condition, stage, age and pain","질환·단계·연령·통증에 따른 맞춤 훈련 계획 생성"],
+sp3t:["训练","Train","훈련"],sp3:["实时动作指导与纠错，超范围立即提醒","Live movement guidance and correction, instant out-of-range alerts","실시간 동작 지도·교정, 안전 범위 초과 시 즉시 경고"],
+sp4t:["监测","Monitor","모니터링"],sp4:["疼痛与活动度持续记录，趋势一目了然","Continuous pain and ROM logging with clear trends","통증·가동범위 지속 기록, 추이를 한눈에 확인"],
+sp5t:["随访","Follow up","추적"],sp5:["治疗师看板 + 智能体建议，异常自动转交","Therapist dashboard + agent proposals, anomalies auto-escalated","치료사 대시보드 + 에이전트 제안, 이상 징후 자동 전달"],
+sHitl:["<b>治疗师把关：</b>智能体只能提出建议，任何方案变更都必须由治疗师批准。高风险决策永远由人做出。","<b>Human-in-the-loop:</b> agents can only propose; every plan change requires therapist approval. High-risk decisions always stay human.","<b>치료사 검토:</b> 에이전트는 제안만 할 수 있으며 모든 계획 변경은 치료사 승인이 필요합니다. 고위험 결정은 항상 사람이 내립니다."],
 dKick:["数字疗法（DTx）","Digital therapeutics (DTx)","디지털 치료제(DTx)"],dTitle:["不只是 App，而是处方级数字疗法","Not just an app — prescription-grade digital therapeutics","앱이 아닌 처방급 디지털 치료제"],
 dLead:["数字疗法的核心标准：循证、处方级、可监测、可监管。ReMotion AI 按此设计。","The core bar for DTx: evidence-based, prescription-grade, monitorable, regulatable. ReMotion AI is designed to it.","DTx의 핵심 기준인 근거 기반·처방급·모니터링 가능·규제 가능을 ReMotion AI는 설계 원칙으로 삼습니다."],
-dtxCards:[
-[["循证基础","Evidence-based","근거 기반"],["训练剂量与进阶规则参照康复医学指南设计","Dosage and progression rules built on rehabilitation guidelines","훈련 용량·진행 규칙은 재활의학 가이드라인 기반으로 설계"]],
-[["处方级个性化","Prescription-grade personalization","처방급 개인화"],["按病症、阶段、年龄、疼痛动态调整计划","Plan adjusts dynamically by condition, stage, age and pain","질환·단계·연령·통증에 따라 계획을 동적으로 조정"]],
-[["持续监测","Continuous monitoring","지속 모니터링"],["活动度、疼痛、依从性数据持续回流治疗师","ROM, pain and adherence data flow back to the therapist","가동범위·통증·순응도 데이터가 치료사에게 지속 전달"]],
-[["监管路径","Regulatory pathway","규제 경로"],["FDA SaMD、欧盟 MDR 与 AI Act、韩国 MFDS 数字医疗器械（与法规顾问确认）","FDA SaMD, EU MDR & AI Act, Korea MFDS digital medical devices (to be confirmed with regulatory counsel)","FDA SaMD, EU MDR·AI Act, 한국 MFDS 디지털의료기기(규제 전문가와 확정 예정)"]]],
+d1t:["循证基础","Evidence-based","근거 기반"],d1:["训练剂量与进阶规则参照康复医学指南设计","Dosage and progression rules built on rehabilitation guidelines","훈련 용량·진행 규칙은 재활의학 가이드라인 기반으로 설계"],
+d2t:["处方级个性化","Prescription-grade personalization","처방급 개인화"],d2:["按病症、阶段、年龄、疼痛动态调整计划","Plan adjusts dynamically by condition, stage, age and pain","질환·단계·연령·통증에 따라 계획을 동적으로 조정"],
+d3t:["持续监测","Continuous monitoring","지속 모니터링"],d3:["活动度、疼痛、依从性数据持续回流治疗师","ROM, pain and adherence data flow back to the therapist","가동범위·통증·순응도 데이터가 치료사에게 지속 전달"],
+d4t:["监管路径","Regulatory pathway","규제 경로"],d4:["FDA SaMD、欧盟 MDR 与 AI Act、韩国 MFDS 数字医疗器械（与法规顾问确认）","FDA SaMD, EU MDR & AI Act, Korea MFDS digital medical devices (to be confirmed with regulatory counsel)","FDA SaMD, EU MDR·AI Act, 한국 MFDS 디지털의료기기(규제 전문가와 확정 예정)"],
 dUse:["<b>预期用途：</b>在治疗师监督下的居家康复训练指导与监测辅助，不用于诊断。","<b>Intended use:</b> exercise guidance and monitoring support for clinician-supervised home rehab; not for diagnosis.","<b>의도된 용도:</b> 치료사 감독 하의 재택 재활 운동 안내·모니터링 보조이며 진단용이 아닙니다."],
 tKick:["核心技术","Core technology","핵심 기술"],tTitle:["六个智能体协作，每一步都可审计","Six agents cooperate, every step auditable","6개 에이전트가 협업하고 모든 단계를 감사할 수 있습니다"],
 tLead:["感知、评估、规划、守卫、复核、审计——六个智能体分工协作，每条决策附带依据与审计哈希；模型可更换，护栏不可关闭。","Perceive, assess, plan, guard, review, audit — six agents share the work; every decision carries its rationale and an audit hash. Models are swappable; guardrails are not.","인식·평가·계획·가드·검토·감사 — 6개 에이전트가 역할을 나누고 모든 결정에 근거와 감사 해시가 붙습니다. 모델은 교체 가능하지만 가드레일은 끌 수 없습니다."],
-agents:[
-[["感知","Perceive","인식"],["动作数据采集（姿态估计）","Movement capture (pose estimation)","동작 데이터 수집(자세 추정)"]],
-[["评估","Assess","평가"],["关节角度与目标对比","Joint angles vs. targets","관절 각도와 목표 비교"]],
-[["规划","Plan","계획"],["个性化训练计划生成","Personalized plan generation","맞춤 훈련 계획 생성"]],
-[["守卫","Guard","가드"],["安全护栏与红旗症状筛查","Guardrails & red-flag screening","안전 가드레일·위험 신호 점검"]],
-[["复核","Review","검토"],["治疗师批准变更","Therapist approval","치료사 변경 승인"]],
-[["审计","Audit","감사"],["决策记录与 SHA-256 哈希","Decision log & SHA-256 hash","결정 기록·SHA-256 해시"]]],
-techCards:[
-[["开放 Agent Harness","Open agent harness","오픈 에이전트 하네스"],["与模型无关：可更换模型，开放工具接口（MCP 风格），输出 FHIR CarePlan","Model-agnostic: swappable models, open MCP-style tool interface, FHIR CarePlan export","모델 독립형: 모델 교체 가능, MCP 스타일 개방 도구 인터페이스, FHIR CarePlan 출력"]],
-[["端侧 · 隐私优先","On-device & privacy-first","온디바이스·프라이버시 우선"],["端侧推理让影像留在设备内，数据边界可选","On-device inference keeps video local; the data boundary is selectable","온디바이스 추론으로 영상이 기기 안에 머물고 데이터 경계를 선택 가능"]],
-[["公平性计划","Fairness plan","공정성 계획"],["试点将按年龄、体型、肤色与光照条件评估姿态识别误差","The pilot will measure pose-estimation error across age, body type, skin tone and lighting","파일럿에서 연령·체형·피부색·조명별 자세 인식 오차를 평가할 예정"]]],
+a1t:["感知","Perceive","인식"],a1:["动作数据采集（姿态估计）","Movement capture (pose estimation)","동작 데이터 수집(자세 추정)"],
+a2t:["评估","Assess","평가"],a2:["关节角度与目标对比","Joint angles vs. targets","관절 각도와 목표 비교"],
+a3t:["规划","Plan","계획"],a3:["个性化训练计划生成","Personalized plan generation","맞춤 훈련 계획 생성"],
+a4t:["守卫","Guard","가드"],a4:["安全护栏与红旗症状筛查","Guardrails & red-flag screening","안전 가드레일·위험 신호 점검"],
+a5t:["复核","Review","검토"],a5:["治疗师批准变更","Therapist approval","치료사 변경 승인"],
+a6t:["审计","Audit","감사"],a6:["决策记录与 SHA-256 哈希","Decision log & SHA-256 hash","결정 기록·SHA-256 해시"],
+t1t:["开放 Agent Harness","Open agent harness","오픈 에이전트 하네스"],t1:["与模型无关：可更换模型，开放工具接口（MCP 风格），输出 FHIR CarePlan","Model-agnostic: swappable models, open MCP-style tool interface, FHIR CarePlan export","모델 독립형: 모델 교체 가능, MCP 스타일 개방 도구 인터페이스, FHIR CarePlan 출력"],
+t2t:["端侧 · 隐私优先","On-device & privacy-first","온디바이스·프라이버시 우선"],t2:["端侧推理让影像留在设备内，数据边界可选","On-device inference keeps video local; the data boundary is selectable","온디바이스 추론으로 영상이 기기 안에 머물고 데이터 경계를 선택 가능"],
+t3t:["公平性计划","Fairness plan","공정성 계획"],t3:["试点将按年龄、体型、肤色与光照条件评估姿态识别误差","The pilot will measure pose-estimation error across age, body type, skin tone and lighting","파일럿에서 연령·체형·피부색·조명별 자세 인식 오차를 평가할 예정"],
 tHarness:["技术底座 AGENTA 2028 —— 深度整合 Agentic AI 与开源 Agent 基础设施：","The technology foundation is AGENTA 2028 — deeply integrated Agentic AI with open agent infrastructure:","기술 기반 AGENTA 2028 — Agentic AI와 오픈 에이전트 인프라를 깊이 통합:"],
 tLink:["查看技术底座 ↗","Explore the foundation ↗","기술 기반 살펴보기 ↗"],
 eKick:["效果数据","Outcomes","효과 데이터"],eTitle:["依从性与活动度改善（示意）","Adherence and ROM improvement (illustrative)","순응도와 가동범위 개선(예시)"],
 eLead:["以下图表展示产品预期效果形态：实时反馈把依从性留在高位，个性化进阶推动活动度稳步改善。","The charts below illustrate the product's expected outcome shape: live feedback keeps adherence high; personalized progression drives steady ROM gains.","아래 차트는 제품의 기대 효과 형태를 보여 줍니다. 실시간 피드백이 순응도를 높게 유지하고 맞춤형 진행이 가동범위를 꾸준히 개선합니다."],
-eWarn:["以下均为示例数据（示意），用于展示产品形态，不代表临床结果；真实数据将在临床试点中获取。代码中以 DEMO-DATA 标注，可一键替换为真实数据。","All data below is illustrative sample data — not clinical results; real data will come from the clinical pilot. Marked DEMO-DATA in the code for easy replacement.","아래 모든 데이터는 제품 형태를 보여 주는 예시 데이터이며 임상 결과가 아닙니다. 실제 데이터는 임상 파일럿에서 확보할 예정이며 코드의 DEMO-DATA 표시에서 교체할 수 있습니다."],
+eWarn:["以下均为示例数据（示意），用于展示产品形态，不代表临床结果；真实数据将在临床试点中获取。代码中以 DEMO-DATA 标注，可一键替换。","All data below is illustrative sample data — not clinical results; real data will come from the clinical pilot. Marked DEMO-DATA in the code for easy replacement.","아래 모든 데이터는 제품 형태를 보여 주는 예시 데이터이며 임상 결과가 아닙니다. 실제 데이터는 임상 파일럿에서 확보할 예정이며 코드의 DEMO-DATA 표시에서 교체할 수 있습니다."],
 ch1t:["4 周训练依从率：ReMotion AI vs 常规居家康复（示例）","4-week adherence: ReMotion AI vs conventional home rehab (illustrative)","4주 훈련 순응도: ReMotion AI vs 일반 재택 재활(예시)"],
 ch1s:["纵轴：每周训练完成率（%）。实时反馈 + 智能体提醒将依从性维持在 80% 以上。","Y-axis: weekly session completion (%). Live feedback + agent nudges keep adherence above 80%.","세로축: 주간 훈련 완료율(%). 실시간 피드백과 에이전트 알림이 순응도를 80% 이상으로 유지합니다."],
 ch1l1:["ReMotion AI","ReMotion AI","ReMotion AI"],ch1l2:["常规居家康复","Conventional home rehab","일반 재택 재활"],
 ch2t:["干预前后活动度改善（占目标 %，示例）","ROM before vs after intervention (% of target, illustrative)","중재 전후 가동범위 개선(목표 대비 %, 예시)"],
 ch2s:["三个常见康复场景：4 周个性化训练后活动度向目标明显靠拢。","Three common rehab scenarios: after 4 weeks of personalized training, ROM moves clearly toward target.","3가지 대표 재활 시나리오: 4주 맞춤 훈련 후 가동범위가 목표에 뚜렷이 가까워집니다."],
 ch2l1:["干预前","Before","중재 전"],ch2l2:["干预后","After","중재 후"],
+ch3t:["全球数字疗法市场规模（示例，单位：十亿美元）","Global DTx market size (illustrative, USD billions)","글로벌 DTx 시장 규모(예시, 단위: 십억 달러)"],
+ch3s:["基于公开市场研究报告的约数，仅用于展示趋势。","Approximate figures from public market research, shown for trend illustration only.","공개 시장 조사 기반 약수로 추세 표시용입니다."],
 tbl:["查看数据表","View data table","데이터 표 보기"],
 mKick:["市场","Market","시장"],mTitle:["远程康复与数字疗法市场快速增长","Telerehab & DTx market grows fast","빠르게 성장하는 원격 재활·DTx 시장"],
 mLead:["老龄化和康复资源短缺推动需求；数字疗法在全球主要市场获得监管认可，市场进入快车道。以下规模数据为公开市场研究的约数（示例）。","Aging and rehab shortages drive demand; DTx gains regulatory recognition across major markets. Sizing figures below are approximate, from public market research (illustrative).","고령화와 재활 자원 부족이 수요를 이끌고, DTx는 주요 시장에서 규제 인정을 받으며 시장이 가속화하고 있습니다. 아래 규모 수치는 공개 시장 조사의 약수(예시)입니다."],
 m1:["全球数字疗法市场约 $8.1B（2024，约数）","global DTx market ≈ $8.1B (2024, approx.)","글로벌 DTx 시장 약 $8.1B(2024, 약수)"],
 m2:["复合年增长率约 21%（2024–2030，约数）","CAGR ≈ 21% (2024–2030, approx.)","연평균 성장률 약 21%(2024–2030, 약수)"],
 m3:["24 亿潜在受益人群（WHO）","2.4B potential beneficiaries (WHO)","24억 명 잠재 수혜자(WHO)"],
-ch3t:["全球数字疗法市场规模（示例，单位：十亿美元）","Global DTx market size (illustrative, USD billions)","글로벌 DTx 시장 규모(예시, 단위: 십억 달러)"],
-ch3s:["基于公开市场研究报告的约数，仅用于展示趋势。","Approximate figures from public market research, shown for trend illustration only.","공개 시장 조사 기반 약수로 추세 표시용입니다."],
 mSrc:["市场数据为公开研究报告约数（示例），非财务预测承诺。","Market figures are approximate (illustrative), not financial projections.","시장 수치는 공개 조사 기반 약수(예시)이며 재무 전망이 아닙니다."],
 rKick:["路线图","Roadmap","로드맵"],rTitle:["从原型到发布","From prototype to launch","프로토타입에서 출시까지"],
 rLead:["按临床证据与法规路径逐步推进，每一步都有可验证的里程碑。","Advancing step by step along the clinical-evidence and regulatory path, with verifiable milestones at every stage.","임상 근거와 규제 경로를 따라 단계적으로 나아가며 각 단계마다 검증 가능한 이정표를 둡니다."],
-road:[
-[["原型 · 现在","Prototype · now","프로토타입 · 현재"],["交互演示、智能体 Harness 参考设计、三语界面","Interactive demo, agent-harness reference design, trilingual UI","인터랙티브 데모, 에이전트 하네스 참조 설계, 3개 국어 UI"]],
-[["临床试点","Clinical pilot","임상 파일럿"],["在合作机构验证：关节角度误差（对照量角器）、依从性、安全事件","With partner clinics: joint-angle error vs goniometer, adherence, safety events","협력 기관에서 검증: 각도 오차(각도계 대비), 순응도, 안전 사건"]],
-[["CES 2027 展示","CES 2027 showcase","CES 2027 전시"],["现场演示与创新奖申报","Live demo and Innovation Awards entry","현장 시연 및 혁신상 출품"]],
-[["CES 2028 发布","CES 2028 launch","CES 2028 출시"],["完成法规路径与产品化","Regulatory path and productization","인허가 경로 및 제품화"]]],
+r1e:["现在","Now","현재"],r1t:["原型","Prototype","프로토타입"],r1:["交互演示、智能体 Harness 参考设计、三语界面","Interactive demo, agent-harness reference design, trilingual UI","인터랙티브 데모, 에이전트 하네스 참조 설계, 3개 국어 UI"],
+r2e:["下一步","Next","다음 단계"],r2t:["临床试点","Clinical pilot","임상 파일럿"],r2:["在合作机构验证：关节角度误差（对照量角器）、依从性、安全事件","With partner clinics: joint-angle error vs goniometer, adherence, safety events","협력 기관에서 검증: 각도 오차(각도계 대비), 순응도, 안전 사건"],
+r3e:["2027","2027","2027"],r3t:["CES 2027 展示","CES 2027 showcase","CES 2027 전시"],r3:["现场演示与创新奖申报","Live demo and Innovation Awards entry","현장 시연 및 혁신상 출품"],
+r4e:["2028","2028","2028"],r4t:["CES 2028 发布","CES 2028 launch","CES 2028 출시"],r4:["完成法规路径与产品化","Regulatory path and productization","인허가 경로 및 제품화"],
 f1:["体验互动演示 ↗","Try the interactive demo ↗","인터랙티브 데모 체험 ↗"],
 f2:["技术底座 AGENTA 2028 ↗","Technology foundation AGENTA 2028 ↗","기술 기반 AGENTA 2028 ↗"],
 foot:["ReMotion AI · 远程康复与数字疗法 参赛页 ©2026","ReMotion AI · Telerehab & DTx competition page ©2026","ReMotion AI · 원격 재활 & DTx 출품 페이지 ©2026"],
@@ -356,77 +448,67 @@ var CD={
   market:{years:[2024,2025,2026,2027,2028,2029,2030], v:[8.1,9.8,11.9,14.4,17.4,21.0,25.3]}
 };
 /* ============ 基础工具 ============ */
-function t(k){return T[k][L]}
+function t(k){return T[k]?T[k][L]:""}
 function $(i){return document.getElementById(i)}
 function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
-function fmt(v){return v>=1000?(v/1000).toFixed(v%1000===0?0:1)+"K":String(v)}
 function safe(fn){try{fn()}catch(e){}}
 function qa(sel,fn){[].forEach.call(document.querySelectorAll(sel),fn)}
 /* ============ 语言与主题 ============ */
 function ui(){
-  document.title=t("meta_title")||"ReMotion AI · "+t("ht");
+  document.title="ReMotion AI · "+t("ht")+" | 参赛作品";
   document.documentElement.lang=["zh-CN","en","ko"][L];
-  qa("[data-t]",function(e){e.textContent=t(e.dataset.t)});
+  qa("[data-t]",function(e){e.innerHTML=t(e.dataset.t)});
   var lg=$("lang");lg.innerHTML="";
   Ls.forEach(function(x,i){var b=document.createElement("button");b.textContent=x[1];b.className=i===L?"on":"";b.setAttribute("aria-pressed",i===L);
     b.onclick=function(){L=i;try{localStorage.setItem("lg",i)}catch(e){};ui()};lg.appendChild(b)});
-  $("steps").innerHTML=T.steps.map(function(s){return '<div class="st"><span class="n">'+esc(s[0][L].slice(0,1))+"</span><b>"+esc(s[0][L])+"</b><p>"+esc(s[1][L])+"</p></div>"}).join("");
-  $("agents").innerHTML=T.agents.map(function(a){return '<div class="ag"><b>'+esc(a[0][L])+"</b><small>"+esc(a[1][L])+"</small></div>"}).join("");
-  $("dtxCards").innerHTML=T.dtxCards.map(function(c){return '<div class="card"><b style="color:var(--ac)">'+esc(c[0][L])+"</b><p class=\"mu\" style=\"margin-top:.3rem\">"+esc(c[1][L])+"</p></div>"}).join("");
-  $("techCards").innerHTML=T.techCards.map(function(c){return '<div class="card"><b style="color:var(--ac)">'+esc(c[0][L])+"</b><p class=\"mu\" style=\"margin-top:.3rem\">"+esc(c[1][L])+"</p></div>"}).join("");
-  $("road").innerHTML=T.road.map(function(r){return '<div class="rm"><em></em><b>'+esc(r[0][L])+"</b><p class=\"mu\">"+esc(r[1][L])+"</p></div>"}).join("");
-  safe(c1);safe(c2);safe(c3);safe(tables);
+  safe(c1);safe(c2);safe(c3);
 }
 $("th").onclick=function(){var r=document.documentElement,cur=r.getAttribute("data-theme")==="dark";
   r.setAttribute("data-theme",cur?"light":"dark");try{localStorage.setItem("th",cur?"light":"dark")}catch(e){}};
 try{var sv=localStorage.getItem("lg");if(sv!==null)L=+sv;else{var n=(navigator.language||"").slice(0,2);L=n==="ko"?2:n==="en"?1:0}}catch(e){}
-try{var th=localStorage.getItem("th");if(th)document.documentElement.setAttribute("data-theme",th)}catch(e){}
+try{var thv=localStorage.getItem("th");if(thv)document.documentElement.setAttribute("data-theme",thv)}catch(e){}
 /* ============ 图表 1：4 周依从率（双系列折线，强调式：品牌蓝 + 灰） ============ */
 function c1(){
   var W=640,H=300,PL=46,PR=26,PT=16,PB=44,ipw=W-PL-PR,iph=H-PT-PB;
   var d=CD.adhere,n=d.rem.length;
-  var x=i=>PL+ipw*i/(n-1), y=v=>PT+iph*(1-v/100);
+  var x=function(i){return PL+ipw*i/(n-1)}, y=function(v){return PT+iph*(1-v/100)};
   var s="";
   [0,25,50,75,100].forEach(function(g){var yy=y(g);
     s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--gr)" stroke-width="1"/>'+
        '<text x="'+(PL-8)+'" y="'+(yy+4)+'" font-size="11" fill="var(--ts)" text-anchor="end">'+g+"</text>"});
-  d.rem.forEach(function(v,i){var xx=x(i),yy=y(v);
-    if(i<n-1){s+='<line x1="'+xx+'" y1="'+yy+'" x2="'+x(i+1)+'" y2="'+y(d.rem[i+1])+'" stroke="var(--s1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'}});
-  d.con.forEach(function(v,i){var xx=x(i),yy=y(v);
-    if(i<n-1){s+='<line x1="'+xx+'" y1="'+yy+'" x2="'+x(i+1)+'" y2="'+y(d.con[i+1])+'" stroke="var(--dem)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'}});
-  d.rem.forEach(function(v,i){var xx=x(i),yy=y(v);
-    s+='<circle cx="'+xx+'" cy="'+yy+'" r="5" fill="var(--s1)" stroke="var(--surf)" stroke-width="2"/>'+
-       '<text x="'+xx+'" y="'+(yy-12)+'" font-size="12" fill="var(--tp)" text-anchor="middle">'+v+"%</text>"});
-  d.con.forEach(function(v,i){var xx=x(i),yy=y(v);
-    s+='<circle cx="'+xx+'" cy="'+yy+'" r="5" fill="var(--dem)" stroke="var(--surf)" stroke-width="2"/>'+
-       '<text x="'+xx+'" y="'+(yy+20)+'" font-size="12" fill="var(--ts)" text-anchor="middle">'+v+"%</text>"});
+  var pline=function(arr,col){arr.forEach(function(v,i){var xx=x(i),yy=y(v);
+    if(i<n-1){s+='<line x1="'+xx+'" y1="'+yy+'" x2="'+x(i+1)+'" y2="'+y(arr[i+1])+'" stroke="var(--'+col+')" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'}});
+    s+='<circle cx="'+x(n-1)+'" cy="'+y(arr[n-1])+'" r="5" fill="var(--'+col+')" stroke="var(--surf)" stroke-width="2"/>'};
+  pline(d.rem,"s1");pline(d.con,"dem");
+  /* 端点直接标注（选择性标注，避免每点数字） */
+  s+='<text x="'+(x(n-1)+10)+'" y="'+(y(d.rem[n-1])-10)+'" font-size="12" fill="var(--tp)">'+d.rem[n-1]+"%</text>";
+  s+='<text x="'+(x(n-1)+10)+'" y="'+(y(d.con[n-1])+16)+'" font-size="12" fill="var(--ts)">'+d.con[n-1]+"%</text>";
   d.labels.forEach(function(lb,i){s+='<text x="'+x(i)+'" y="'+(H-14)+'" font-size="12" fill="var(--ts)" text-anchor="middle">'+esc(lb[L])+"</text>"});
   s+='<rect x="'+PL+'" y="'+PT+'" width="'+ipw+'" height="'+iph+'" fill="transparent" id="c1hit"/>';
   s+='<line id="c1x" y1="'+PT+'" y2="'+(PT+iph)+'" stroke="var(--ts)" stroke-width="1" opacity="0"/>';
   $("cw1").innerHTML='<svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+esc(t("ch1t"))+'">'+s+"</svg>";
   var hit=$("c1hit");if(!hit)return;
+  hit.setAttribute("tabindex","0");
+  hit.setAttribute("aria-label",t("ch1l1")+": "+d.rem.join(", ")+"; "+t("ch1l2")+": "+d.con.join(", "));
   hit.addEventListener("pointermove",function(e){var r=this.getBoundingClientRect(),px=e.clientX-r.left;
-    var i=Math.round((px-PL)/ipw*(n-1));i=Math.max(0,Math.min(n-1,i));
+    var i=Math.max(0,Math.min(n-1,Math.round((px-PL)/ipw*(n-1))));
     var X=x(i),xx=r.left+X*(r.width/W),yy=r.top+(y(d.rem[i]))*(r.height/H);
     $("c1x").setAttribute("x1",X);$("c1x").setAttribute("x2",X);$("c1x").setAttribute("opacity",1);
     showTip("c1",i,xx,yy)});
   hit.addEventListener("pointerleave",function(){$("c1x").setAttribute("opacity",0);hideTip()});
-  hit.addEventListener("focus",function(){try{hit.setAttribute("tabindex","0")}catch(e){}});
-  var desc=t("ch1l1")+": "+d.rem.join(", ")+"; "+t("ch1l2")+": "+d.con.join(", ");
-  hit.setAttribute("aria-label",desc);hit.setAttribute("tabindex","0");
 }
 /* ============ 图表 2：干预前后活动度（哑铃图，单色系两档） ============ */
 function c2(){
   var W=640,H=280,PL=130,PR=26,PT=30,PB=50,ipw=W-PL-PR,iph=H-PT-PB;
-  var d=CD.rom,x=v=>PL+ipw*v/100,rowH=iph/d.items.length;
+  var d=CD.rom,x=function(v){return PL+ipw*v/100},rowH=iph/d.items.length;
   var s="";
   [0,25,50,75,100].forEach(function(g){var xx=x(g);
     s+='<line x1="'+xx+'" x2="'+xx+'" y1="'+PT+'" y2="'+(PT+iph)+'" stroke="var(--gr)" stroke-width="1"/>'+
        '<text x="'+xx+'" y="'+(H-16)+'" font-size="11" fill="var(--ts)" text-anchor="middle">'+g+"%</text>"});
   d.items.forEach(function(it,i){var cy=PT+rowH*i+rowH/2,xb=x(it.b),xa=x(it.a);
     s+='<line x1="'+xb+'" y1="'+cy+'" x2="'+xa+'" y2="'+cy+'" stroke="var(--ax)" stroke-width="2"/>';
-    s+='<circle cx="'+xb+'" cy="'+cy+'" r="6" fill="var(--seqL)" stroke="var(--surf)" stroke-width="2" tabindex="0" data-tip="'+i+'-b"/>';
-    s+='<circle cx="'+xa+'" cy="'+cy+'" r="6" fill="var(--s1)" stroke="var(--surf)" stroke-width="2" tabindex="0" data-tip="'+i+'-a"/>';
+    s+='<circle cx="'+xb+'" cy="'+cy+'" r="6" fill="var(--seqL)" stroke="var(--surf)" stroke-width="2"/>';
+    s+='<circle cx="'+xa+'" cy="'+cy+'" r="6" fill="var(--s1)" stroke="var(--surf)" stroke-width="2"/>';
     s+='<circle cx="'+xb+'" cy="'+cy+'" r="14" fill="transparent" data-tip="'+i+'-b" class="c2hit"/>';
     s+='<circle cx="'+xa+'" cy="'+cy+'" r="14" fill="transparent" data-tip="'+i+'-a" class="c2hit"/>';
     s+='<text x="'+(xb-12)+'" y="'+(cy+4)+'" font-size="12" fill="var(--ts)" text-anchor="end">'+it.b+"%</text>";
@@ -434,25 +516,21 @@ function c2(){
     s+='<text x="'+(PL-10)+'" y="'+(cy+4)+'" font-size="13" fill="var(--tp)" text-anchor="end">'+esc(it.lab[L])+"</text>"});
   $("cw2").innerHTML='<svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+esc(t("ch2t"))+'">'+s+"</svg>";
   qa("#cw2 .c2hit",function(h){
-    h.addEventListener("pointerenter",function(e){var r=h.getBoundingClientRect();
-      var key=h.getAttribute("data-tip"),i=+key[0],side=key[2]==="b"?d.items[i].b:d.items[i].a;
-      showTipRaw(t("ch2l"+(side===d.items[i].b?1:2))+": "+side+"%",r.left+16,r.top-10)});
+    h.addEventListener("pointerenter",function(){var r=h.getBoundingClientRect();
+      var key=h.getAttribute("data-tip"),i=+key[0],b=key[2]==="b",v=b?d.items[i].b:d.items[i].a;
+      showTipRaw(esc(d.items[i].lab[L])+" · "+(b?t("ch2l1"):t("ch2l2"))+": "+v+"%",r.left+16,r.top-10)});
     h.addEventListener("pointerleave",hideTip);
-    h.addEventListener("focus",function(e){var r=h.getBoundingClientRect(),key=h.getAttribute("data-tip");
-      var i=+key[0],side=key[2]==="b"?d.items[i].b:d.items[i].a;
-      showTipRaw(t("ch2l"+(side===d.items[i].b?1:2))+": "+side+"%",r.left+16,r.top-10)});
+    h.addEventListener("focus",function(){var r=h.getBoundingClientRect();
+      var key=h.getAttribute("data-tip"),i=+key[0],b=key[2]==="b",v=b?d.items[i].b:d.items[i].a;
+      showTipRaw(esc(d.items[i].lab[L])+" · "+(b?t("ch2l1"):t("ch2l2"))+": "+v+"%",r.left+16,r.top-10)});
     h.addEventListener("blur",hideTip);
-  });
-  qa('#cw2 [data-tip]:not(.c2hit)',function(c){
-    var key=c.getAttribute("data-tip"),i=+key[0],side=key[2]==="b"?"b":"a";
-    c.setAttribute("aria-label",esc(d.items[i].lab[L])+" "+(side==="b"?t("ch2l1"):t("ch2l2"))+": "+(side==="b"?d.items[i].b:d.items[i].a)+"%");
   });
 }
 /* ============ 图表 3：市场规模（单系列折线 + 面积） ============ */
 function c3(){
   var W=640,H=300,PL=46,PR=26,PT=16,PB=44,ipw=W-PL-PR,iph=H-PT-PB;
   var d=CD.market,n=d.v.length,maxV=30;
-  var x=i=>PL+ipw*i/(n-1), y=v=>PT+iph*(1-v/maxV);
+  var x=function(i){return PL+ipw*i/(n-1)}, y=function(v){return PT+iph*(1-v/maxV)};
   var s="";
   [0,5,10,15,20,25,30].forEach(function(g){var yy=y(g);
     s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--gr)" stroke-width="1"/>'+
@@ -460,10 +538,9 @@ function c3(){
   var pts=d.v.map(function(v,i){return x(i)+","+y(v)}).join(" ");
   s+='<polygon points="'+x(0)+","+y(0)+" "+pts+" "+x(n-1)+","+y(0)+'" fill="var(--s1)" opacity="0.1"/>';
   s+='<polyline points="'+pts+'" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-  d.v.forEach(function(v,i){s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="4" fill="var(--s1)" stroke="var(--surf)" stroke-width="2"/>'});
-  d.years.forEach(function(yr,i){s+='<text x="'+x(i)+'" y="'+(H-14)+'" font-size="12" fill="var(--ts)" text-anchor="middle">'+yr+"</text>"});
   s+='<circle cx="'+x(n-1)+'" cy="'+y(d.v[n-1])+'" r="5" fill="var(--s1)" stroke="var(--surf)" stroke-width="2"/>';
-  s+='<text x="'+x(n-1)+'" y="'+(y(d.v[n-1])-12)+'" font-size="12" fill="var(--tp)" text-anchor="middle">$'+d.v[n-1]+"B</text>";
+  s+='<text x="'+(x(n-1)-12)+'" y="'+(y(d.v[n-1])-12)+'" font-size="12" fill="var(--tp)" text-anchor="end">$'+d.v[n-1]+"B</text>";
+  d.years.forEach(function(yr,i){s+='<text x="'+x(i)+'" y="'+(H-14)+'" font-size="12" fill="var(--ts)" text-anchor="middle">'+yr+"</text>"});
   s+='<rect x="'+PL+'" y="'+PT+'" width="'+ipw+'" height="'+iph+'" fill="transparent" id="c3hit"/>';
   s+='<line id="c3x" y1="'+PT+'" y2="'+(PT+iph)+'" stroke="var(--ts)" stroke-width="1" opacity="0"/>';
   $("cw3").innerHTML='<svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+esc(t("ch3t"))+'">'+s+"</svg>";
@@ -471,7 +548,7 @@ function c3(){
   hit.setAttribute("tabindex","0");
   hit.setAttribute("aria-label",d.years.map(function(yy,i){return yy+": $"+d.v[i]+"B"}).join("; "));
   hit.addEventListener("pointermove",function(e){var r=this.getBoundingClientRect(),px=e.clientX-r.left;
-    var i=Math.round((px-PL)/ipw*(n-1));i=Math.max(0,Math.min(n-1,i));
+    var i=Math.max(0,Math.min(n-1,Math.round((px-PL)/ipw*(n-1))));
     var X=x(i),xx=r.left+X*(r.width/W),yy=r.top+(y(d.v[i]))*(r.height/H);
     $("c3x").setAttribute("x1",X);$("c3x").setAttribute("x2",X);$("c3x").setAttribute("opacity",1);
     showTip("c3",i,xx,yy)});
@@ -479,34 +556,23 @@ function c3(){
 }
 /* ============ 提示框（跨图共用） ============ */
 function showTip(which,i,px,py){
-  var d=which==="c1"?CD.adhere:CD.market,el=$("tip"),b=el.getBoundingClientRect();
-  var lab=d.labels?d.labels[i][L]:d.years[i];
+  var d=which==="c1"?CD.adhere:CD.market,el=$("tip");
+  var lab=which==="c1"?d.labels[i][L]:d.years[i];
   var rows=which==="c1"?
     '<div class="row"><i style="background:var(--s1)"></i>'+esc(t("ch1l1"))+": <b>"+d.rem[i]+"%</b></div><div class=\"row\"><i style=\"background:var(--dem)\"></i>"+esc(t("ch1l2"))+": <b>"+d.con[i]+"%</b></div>"
-    :'<b>$'+d.v[i]+"B</b>";
+    :"<b>$"+d.v[i]+"B</b>";
   el.innerHTML="<b>"+esc(lab)+"</b>"+rows;
   el.style.left=Math.min(px+14,window.innerWidth-el.offsetWidth-12)+"px";
   el.style.top=(py-el.offsetHeight-12)+"px";el.style.opacity=1;
 }
 function showTipRaw(html,px,py){var el=$("tip");el.innerHTML=html;el.style.left=px+"px";el.style.top=py+"px";el.style.opacity=1}
-function hideTip(){$("tip").style.opacity=0;$("tip").setAttribute("aria-hidden","true")}
-/* ============ 数据表（无障碍通道：不依赖悬停也能读值） ============ */
-function tables(){
-  var d=CD.adhere,$t=$("tb1"),h="<tr><th></th>"+d.labels.map(function(l){return "<th>"+esc(l[L])+"</th>"}).join("")+"</tr>";
-  $t.innerHTML=h+"<tr><td>"+esc(t("ch1l1"))+"</td>"+d.rem.map(function(v){return "<td>"+v+"%</td>"}).join("")+"</tr>"+
-    "<tr><td>"+esc(t("ch1l2"))+"</td>"+d.con.map(function(v){return "<td>"+v+"%</td>"}).join("")+"</tr>";
-  $("tb2").innerHTML="<tr><th></th><th>"+esc(t("ch2l1"))+"</th><th>"+esc(t("ch2l2"))+"</th></tr>"+
-    CD.rom.items.map(function(it){return "<tr><td>"+esc(it.lab[L])+"</td><td>"+it.b+"%</td><td>"+it.a+"%</td></tr>"}).join("");
-  $("tb3").innerHTML="<tr>"+CD.market.years.map(function(y){return "<th>"+y+"</th>"}).join("")+"</tr><tr>"+
-    CD.market.v.map(function(v){return "<td>$"+v+"B</td>"}).join("")+"</tr>";
-}
+function hideTip(){$("tip").style.opacity=0}
 /* ============ 滚动动效与导航 ============ */
 function revealAll(){qa(".rv",function(el){el.classList.add("on")})}
 if(typeof IntersectionObserver!=="undefined"){
   var io=new IntersectionObserver(function(es){[].forEach.call(es,function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
   qa(".rv",function(el){io.observe(el)});
 }else{revealAll()}
-window.addEventListener("error",function(){revealAll()});
 window.addEventListener("scroll",function(){$("nav").classList.toggle("st",window.scrollY>8)},{passive:true});
 safe(ui);
 </script>
